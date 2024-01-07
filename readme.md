@@ -15,9 +15,9 @@
 
 ```Shell
 BUNDLE_ID=com.plincogame.app
-APPSFLYER_DEV_KEY=
+APPSFLYER_DEV_KEY=XFQCmN22uYmCWYXxRen4GX
 APPSFLYER_DEBUG=false
-APPSFLYER_ONE_LINK=https://link.plincogame.com/.../...
+APPSFLYER_ONE_LINK=https://link.plincogame.com/Iz7C/1zqq58ft
 DOMAIN_URL=https://plincogame.com
 SEND_ATTRIBUTION_POST=api/
 SENTRY_DSN=
