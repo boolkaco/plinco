@@ -3,6 +3,7 @@
 ## design
 
 [figma](https://www.figma.com/file/0T9U3BVVt7q4sBhQiUx7gA/Plinco?type=design&node-id=0-1&mode=design&t=wwj9u7SWIvOUdPyb-0)
+[assets](https://mm.nodeart.app/files/zokjn96j8fgaxbhf779h8apwga/public?h=onwC6wBJJ-U0DDghFE6L6-6hU3hOhNfd_GaphnhxM7g)
 
 ## links
 - Game site: [plincogame.com](plincogame.com)
