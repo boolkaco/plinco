@@ -3,8 +3,19 @@ import 'package:plinco/theme/app_colors.dart';
 
 class StrokeText extends StatelessWidget {
   final String text;
+  final Color color;
+  final Color strokeColor;
+  final double size;
+  final FontWeight fontWeight;
 
-  const StrokeText(this.text, {super.key,});
+  const StrokeText(
+    this.text, {
+    super.key,
+    this.color = AppColors.white,
+    this.strokeColor = AppColors.aqua,
+    this.size = 30,
+    this.fontWeight = FontWeight.w800,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,17 +24,21 @@ class StrokeText extends StatelessWidget {
         Text(
           text,
           style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-            foreground: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 6
-              ..color = AppColors.aqua,
-          ),
+                fontSize: size,
+                fontWeight: fontWeight,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 6
+                  ..color = strokeColor,
+              ),
         ),
         Text(
           text,
           style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-            color: AppColors.white,
-          ),
+                fontSize: size,
+                fontWeight: fontWeight,
+                color: color,
+              ),
         )
       ],
     );

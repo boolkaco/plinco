@@ -1,4 +1,7 @@
 {
   "app": "Plinco",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "start": "Start",
+  "settings": "Settings",
+  "privacy": "Privacy Policy"
 }

@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:plinco/screens/splash_screen.dart';
+import 'package:plinco/screens/menu_screen.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/common/stroke_text.dart';
 
@@ -19,7 +19,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation1, animation2) => const SplashScreen(),
+          pageBuilder: (context, animation1, animation2) => const MenuScreen(),
           transitionDuration: Duration.zero,
           reverseTransitionDuration: Duration.zero,
         ),
