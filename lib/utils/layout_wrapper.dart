@@ -3,10 +3,14 @@ import 'package:plinco/widgets/common/oval_gradient_container.dart';
 
 class BackgroundWrapper extends StatelessWidget {
   final Widget child;
+  final String backgroundUrl;
+  final double opacity;
 
   const BackgroundWrapper({
     Key? key,
     required this.child,
+    this.backgroundUrl = 'assets/images/bg.png',
+    this.opacity = 0.5,
   }) : super(key: key);
 
   @override
@@ -21,9 +25,9 @@ class BackgroundWrapper extends StatelessWidget {
         ),
         Positioned.fill(
           child: Opacity(
-            opacity: 0.5,
+            opacity: opacity,
             child: Image.asset(
-              "assets/images/bg.png",
+              backgroundUrl,
               fit: BoxFit.cover,
             ),
           ),

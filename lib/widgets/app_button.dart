@@ -7,10 +7,12 @@ enum AppButtonType { start, settings, privacy }
 class AppButton extends StatelessWidget {
   final AppButtonType type;
   final String label;
+  final Function() onTap;
 
   const AppButton({
     super.key,
     required this.label,
+    required this.onTap,
     this.type = AppButtonType.start,
   });
 
@@ -26,31 +28,34 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset(
-          "assets/images/${type.name}.png",
-          width: _getCustomWidth(),
-          height: type == AppButtonType.start ? 120 : 80,
-        ),
-        SizedBox(
-          width: _getCustomWidth(),
-          height: type == AppButtonType.start ? 120 : 80,
-          child: Center(
-            child: StrokeText(
-              label,
-              fontWeight: type == AppButtonType.start
-                  ? FontWeight.w900
-                  : FontWeight.w800,
-              size: type == AppButtonType.start
-                  ? 30
-                  : 20,
-              color: AppColors.deepKoamaru,
-              strokeColor: AppColors.white,
+    return GestureDetector(
+      onTap: onTap,
+      child: Stack(
+        children: [
+          Image.asset(
+            "assets/images/${type.name}.png",
+            width: _getCustomWidth(),
+            height: type == AppButtonType.start ? 120 : 80,
+          ),
+          SizedBox(
+            width: _getCustomWidth(),
+            height: type == AppButtonType.start ? 120 : 80,
+            child: Center(
+              child: StrokeText(
+                label,
+                fontWeight: type == AppButtonType.start
+                    ? FontWeight.w900
+                    : FontWeight.w800,
+                size: type == AppButtonType.start
+                    ? 30
+                    : 20,
+                color: AppColors.deepKoamaru,
+                strokeColor: AppColors.white,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

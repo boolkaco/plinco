@@ -1,10 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:plinco/models/level_model.dart';
+import 'package:plinco/screens/game_screen.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/app_button.dart';
 
 class LevelScreen extends StatelessWidget {
-  const LevelScreen({super.key});
+  final LevelModel level;
+
+  const LevelScreen({super.key, required this.level});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +26,18 @@ class LevelScreen extends StatelessWidget {
             ),
             AppButton(
               label: "start".tr(),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => GameScreen(
+                      level: level
+                    ),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
+                );
+              },
             ),
             const SizedBox(
               height: 20,
@@ -29,6 +45,7 @@ class LevelScreen extends StatelessWidget {
             AppButton(
               label: "settings".tr(),
               type: AppButtonType.settings,
+              onTap: () {},
             ),
             const SizedBox(
               height: 20,
@@ -36,6 +53,7 @@ class LevelScreen extends StatelessWidget {
             AppButton(
               label: "privacy".tr(),
               type: AppButtonType.privacy,
+              onTap: () {},
             ),
             Expanded(
               child: Align(

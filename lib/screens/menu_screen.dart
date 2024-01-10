@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:plinco/const/levels.dart';
+import 'package:plinco/models/level_model.dart';
 import 'package:plinco/screens/level_screen.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/menu/level_select_menu.dart';
 
 class MenuScreen extends StatefulWidget {
-  const MenuScreen({super.key});
+  final bool isLoaded;
+
+  const MenuScreen({super.key, this.isLoaded = false});
 
   @override
   State<MenuScreen> createState() => _MenuScreenState();
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  bool _isLoaded = false;
+  late bool _isLoaded;
 
   @override
   void initState() {
     super.initState();
+    _isLoaded = widget.isLoaded;
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isLoaded = true;
@@ -23,11 +28,13 @@ class _MenuScreenState extends State<MenuScreen> {
     });
   }
 
-  void _selectLevel() {
+  void _selectLevel(LevelModel level) {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => const LevelScreen(),
+        pageBuilder: (context, animation1, animation2) => LevelScreen(
+          level: level,
+        ),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       ),
@@ -36,6 +43,8 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final levels = Levels.list;
+
     return BackgroundWrapper(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -50,32 +59,17 @@ class _MenuScreenState extends State<MenuScreen> {
             ),
             if (_isLoaded)
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      LevelSelectMenu(
-                        backgroundUrl: 'assets/images/levels/first.png',
-                        onTap: _selectLevel,
-                      ),
-                      LevelSelectMenu(
-                        backgroundUrl: 'assets/images/levels/second.png',
-                        isRightPlay: false,
-                        score: 1,
-                        onTap: _selectLevel,
-                      ),
-                      LevelSelectMenu(
-                        backgroundUrl: 'assets/images/levels/third.png',
-                        score: 2,
-                        onTap: _selectLevel,
-                      ),
-                      LevelSelectMenu(
-                        backgroundUrl: 'assets/images/levels/fourth.png',
-                        isRightPlay: false,
-                        score: 3,
-                        onTap: _selectLevel,
-                      ),
-                    ],
-                  ),
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(0),
+                  itemCount: levels.length,
+                  itemBuilder: (context, index) {
+                    return LevelSelectMenu(
+                      backgroundUrl: levels[index].previewUrl,
+                      isRightPlay: index % 2 == 0,
+                      score: index,
+                      onTap: () => _selectLevel(levels[index]),
+                    );
+                  },
                 ),
               )
             else

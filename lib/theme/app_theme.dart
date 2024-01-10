@@ -53,9 +53,10 @@ class AppTheme {
           fontFamily: fontFamily,
         ),
         headlineMedium: TextStyle(
-          fontSize: 16,
+          fontSize: 20,
           color: AppColors.white,
-            fontFamily: fontFamily,
+          fontFamily: fontFamily,
+          fontWeight: FontWeight.w800,
         ),
         headlineLarge: TextStyle(
           fontSize: 30,
