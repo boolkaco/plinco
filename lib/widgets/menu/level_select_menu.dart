@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plinco/const/assets.dart';
 import 'package:plinco/widgets/menu/score_stars.dart';
 
 class LevelSelectMenu extends StatelessWidget {
@@ -27,7 +28,7 @@ class LevelSelectMenu extends StatelessWidget {
             child: Center(
               child: Stack(
                 children: [
-                  Image.asset(
+                  Image.network(
                     backgroundUrl,
                     width: 303,
                     height: 223,
@@ -36,8 +37,8 @@ class LevelSelectMenu extends StatelessWidget {
                     bottom: 0,
                     right: isRightPlay ? 20 : null,
                     left: isRightPlay ? null : 20,
-                    child: Image.asset(
-                      'assets/images/play_btn.png',
+                    child: Image.network(
+                      assets['play_btn']!,
                       width: 57,
                       height: 62,
                     ),

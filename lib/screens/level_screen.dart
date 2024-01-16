@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:plinco/const/assets.dart';
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/screens/game_screen.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
@@ -20,8 +21,8 @@ class LevelScreen extends StatelessWidget {
             const SizedBox(
               height: 114,
             ),
-            Image.asset(
-              "assets/images/logo.png",
+            Image.network(
+              assets['logo']!,
               fit: BoxFit.cover,
             ),
             AppButton(
@@ -44,7 +45,7 @@ class LevelScreen extends StatelessWidget {
             ),
             AppButton(
               label: "settings".tr(),
-              type: AppButtonType.settings,
+              type: AppButtonType.left,
               onTap: () {},
             ),
             const SizedBox(
@@ -52,7 +53,7 @@ class LevelScreen extends StatelessWidget {
             ),
             AppButton(
               label: "privacy".tr(),
-              type: AppButtonType.privacy,
+              type: AppButtonType.right,
               onTap: () {},
             ),
             Expanded(
@@ -60,8 +61,8 @@ class LevelScreen extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: GestureDetector(
                   onTap: () => Navigator.pop(context),
-                  child: Image.asset(
-                    "assets/images/back.png",
+                  child: Image.network(
+                    assets['back_btn']!,
                     fit: BoxFit.fill,
                     width: 57,
                     height: 61,

@@ -29,7 +29,6 @@ class GameScreen extends StatelessWidget {
                   GameOverlay(
                     level: level,
                   ),
-                  // Возможно, вам понадобится другой виджет для интерфейса, если он должен быть поверх игры
                 ],
               ),
             ),

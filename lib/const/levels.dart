@@ -1,22 +1,23 @@
+import 'package:plinco/const/assets.dart';
 import 'package:plinco/models/level_model.dart';
 
 class Levels {
   static List<LevelModel> list = [
     LevelModel(
-      backgroundUrl: 'assets/images/levels/first_bg.png',
-      previewUrl: 'assets/images/levels/first.png',
+      backgroundUrl: assets['level_1_bg']!,
+      previewUrl: assets['level_1_preview']!,
     ),
     LevelModel(
-      backgroundUrl: 'assets/images/levels/second_bg.png',
-      previewUrl: 'assets/images/levels/second.png',
+      backgroundUrl: assets['level_1_bg']!,
+      previewUrl: assets['level_2_preview']!,
     ),
     LevelModel(
-      backgroundUrl: 'assets/images/levels/third_bg.png',
-      previewUrl: 'assets/images/levels/third.png',
+      backgroundUrl: assets['level_1_bg']!,
+      previewUrl: assets['level_3_preview']!,
     ),
     LevelModel(
-      backgroundUrl: 'assets/images/levels/fourth_bg.png',
-      previewUrl: 'assets/images/levels/fourth.png',
+      backgroundUrl: assets['level_1_bg']!,
+      previewUrl: assets['level_4_preview']!,
     ),
   ];
 }

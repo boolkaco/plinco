@@ -9,7 +9,7 @@ class BackgroundWrapper extends StatelessWidget {
   const BackgroundWrapper({
     Key? key,
     required this.child,
-    this.backgroundUrl = 'assets/images/bg.png',
+    this.backgroundUrl = 'https://plincogame.com/assets/images/bg.png',
     this.opacity = 0.5,
   }) : super(key: key);
 
@@ -26,7 +26,7 @@ class BackgroundWrapper extends StatelessWidget {
         Positioned.fill(
           child: Opacity(
             opacity: opacity,
-            child: Image.asset(
+            child: Image.network(
               backgroundUrl,
               fit: BoxFit.cover,
             ),

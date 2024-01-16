@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plinco/const/assets.dart';
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/screens/level_screen.dart';
 import 'package:plinco/screens/menu_screen.dart';
@@ -28,8 +29,8 @@ class GameOverlay extends StatelessWidget {
               ),
             );
           },
-          child: Image.asset(
-            "assets/images/home_btn.png",
+          child: Image.network(
+            assets['home_btn']!,
             width: 59,
             height: 62,
           ),
@@ -46,8 +47,8 @@ class GameOverlay extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Image.asset(
-                      "assets/images/coin_icon.png",
+                    Image.network(
+                      assets['coin_icon']!,
                       width: 28,
                       height: 30,
                     ),
@@ -64,8 +65,8 @@ class GameOverlay extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Image.asset(
-                      "assets/images/ball_icon.png",
+                    Image.network(
+                      assets['ball_icon']!,
                       width: 28,
                       height: 30,
                     ),
@@ -96,8 +97,8 @@ class GameOverlay extends StatelessWidget {
               ),
             );
           },
-          child: Image.asset(
-            "assets/images/settings_btn.png",
+          child: Image.network(
+            assets['settings_btn']!,
             width: 59,
             height: 62,
           ),

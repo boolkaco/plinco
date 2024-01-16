@@ -73,7 +73,6 @@ flutter:
   assets:
     - assets/translations/
     - assets/images/
-    - assets/images/levels/
     - assets/images/space/
 
   # An image asset can refer to one or more resolution-specific "variants", see

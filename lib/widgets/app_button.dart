@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:plinco/const/assets.dart';
 import 'package:plinco/theme/app_colors.dart';
 import 'package:plinco/widgets/common/stroke_text.dart';
 
-enum AppButtonType { start, settings, privacy }
+enum AppButtonType { main, right, left }
 
 class AppButton extends StatelessWidget {
   final AppButtonType type;
@@ -13,13 +14,13 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.label,
     required this.onTap,
-    this.type = AppButtonType.start,
+    this.type = AppButtonType.main,
   });
 
   double _getCustomWidth() {
-    if (type == AppButtonType.start) {
+    if (type == AppButtonType.main) {
       return 240;
-    } else if (type == AppButtonType.settings) {
+    } else if (type == AppButtonType.right) {
       return 210;
     } else {
       return 190;
@@ -32,21 +33,21 @@ class AppButton extends StatelessWidget {
       onTap: onTap,
       child: Stack(
         children: [
-          Image.asset(
-            "assets/images/${type.name}.png",
+          Image.network(
+            assets['${type.name}_menu_btn']!,
             width: _getCustomWidth(),
-            height: type == AppButtonType.start ? 120 : 80,
+            height: type == AppButtonType.main ? 120 : 80,
           ),
           SizedBox(
             width: _getCustomWidth(),
-            height: type == AppButtonType.start ? 120 : 80,
+            height: type == AppButtonType.main ? 120 : 80,
             child: Center(
               child: StrokeText(
                 label,
-                fontWeight: type == AppButtonType.start
+                fontWeight: type == AppButtonType.main
                     ? FontWeight.w900
                     : FontWeight.w800,
-                size: type == AppButtonType.start
+                size: type == AppButtonType.main
                     ? 30
                     : 20,
                 color: AppColors.deepKoamaru,

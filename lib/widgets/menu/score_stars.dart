@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plinco/const/assets.dart';
 
 class ScoreStars extends StatelessWidget {
   final int score;
@@ -12,7 +13,7 @@ class ScoreStars extends StatelessWidget {
         SizedBox(
           height: 80,
           width: 133,
-          child: Image.asset("assets/images/stars.png"),
+          child: Image.network(assets['stars']!),
         ),
         if (score >= 1)
           Positioned(
@@ -23,7 +24,7 @@ class ScoreStars extends StatelessWidget {
               child: SizedBox(
                 height: 40,
                 width: 40,
-                child: Image.asset("assets/images/filled_star.png"),
+                child: Image.network(assets['filled_star']!),
               ),
             ),
           ),
@@ -31,7 +32,7 @@ class ScoreStars extends StatelessWidget {
           Positioned.fill(
             top: 4,
             bottom: 14,
-            child: Image.asset("assets/images/filled_star.png"),
+            child: Image.network(assets['filled_star']!),
           ),
         if (score >= 3)
           Positioned(
@@ -42,7 +43,7 @@ class ScoreStars extends StatelessWidget {
               child: SizedBox(
                 height: 40,
                 width: 40,
-                child: Image.asset("assets/images/filled_star.png"),
+                child: Image.network(assets['filled_star']!),
               ),
             ),
           ),
