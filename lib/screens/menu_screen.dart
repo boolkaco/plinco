@@ -3,6 +3,7 @@ import 'package:plinco/const/assets.dart';
 import 'package:plinco/const/levels.dart';
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/screens/level_screen.dart';
+import 'package:plinco/services/images_service.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/menu/level_select_menu.dart';
 
@@ -54,8 +55,8 @@ class _MenuScreenState extends State<MenuScreen> {
             const SizedBox(
               height: 114,
             ),
-            Image.network(
-              'https://plincogame.com/assets/images/Logo_Plinco.png',
+            Image.file(
+              ImagesService().getByFilename(assets['logo']!)!,
               fit: BoxFit.cover,
             ),
             if (_isLoaded)
@@ -75,8 +76,8 @@ class _MenuScreenState extends State<MenuScreen> {
               )
             else
               Expanded(
-                child: Image.network(
-                  assets['ball_decoration']!,
+                child: Image.file(
+                  ImagesService().getByFilename(assets['ball_decoration']!)!,
                   fit: BoxFit.contain,
                 ),
               )

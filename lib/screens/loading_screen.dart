@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/screens/menu_screen.dart';
+import 'package:plinco/utils/image_loader.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/common/stroke_text.dart';
 
@@ -17,8 +18,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await _loadImages();
-      Future.delayed(const Duration(seconds: 2), () {
+      for (var asset in assets.values) {
+        await ImageLoader().loadImage(asset);
+      }
+      
+      Future.delayed(const Duration(seconds: 0), () {
         Navigator.pushReplacement(
           context,
           PageRouteBuilder(
@@ -32,15 +36,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     });
   }
 
-  Future<void> _loadImages() async {
-    assets.forEach((_, value) async {
-      await precacheImage(
-        NetworkImage(value),
-        context,
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return BackgroundWrapper(
@@ -51,7 +46,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             const SizedBox(
               height: 188,
             ),
-            Center(child: StrokeText('loading'.tr()))
+            Center(child: StrokeText('loading'.tr())),
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:plinco/const/assets.dart';
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/screens/level_screen.dart';
 import 'package:plinco/screens/menu_screen.dart';
+import 'package:plinco/services/images_service.dart';
 import 'package:plinco/theme/app_colors.dart';
 
 class GameOverlay extends StatelessWidget {
@@ -29,8 +30,8 @@ class GameOverlay extends StatelessWidget {
               ),
             );
           },
-          child: Image.network(
-            assets['home_btn']!,
+          child: Image.file(
+            ImagesService().getByFilename(assets['home_btn']!)!,
             width: 59,
             height: 62,
           ),
@@ -47,8 +48,8 @@ class GameOverlay extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Image.network(
-                      assets['coin_icon']!,
+                    Image.file(
+                      ImagesService().getByFilename(assets['coin_icon']!)!,
                       width: 28,
                       height: 30,
                     ),
@@ -65,8 +66,8 @@ class GameOverlay extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Image.network(
-                      assets['ball_icon']!,
+                    Image.file(
+                      ImagesService().getByFilename(assets['ball_icon']!)!,
                       width: 28,
                       height: 30,
                     ),
@@ -97,8 +98,8 @@ class GameOverlay extends StatelessWidget {
               ),
             );
           },
-          child: Image.network(
-            assets['settings_btn']!,
+          child: Image.file(
+            ImagesService().getByFilename(assets['settings_btn']!)!,
             width: 59,
             height: 62,
           ),

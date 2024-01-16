@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/screens/game_screen.dart';
+import 'package:plinco/services/images_service.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/app_button.dart';
 
@@ -21,8 +22,8 @@ class LevelScreen extends StatelessWidget {
             const SizedBox(
               height: 114,
             ),
-            Image.network(
-              assets['logo']!,
+            Image.file(
+              ImagesService().getByFilename(assets['logo']!)!,
               fit: BoxFit.cover,
             ),
             AppButton(
@@ -61,8 +62,8 @@ class LevelScreen extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: GestureDetector(
                   onTap: () => Navigator.pop(context),
-                  child: Image.network(
-                    assets['back_btn']!,
+                  child: Image.file(
+                    ImagesService().getByFilename(assets['back_btn']!)!,
                     fit: BoxFit.fill,
                     width: 57,
                     height: 61,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plinco/const/assets.dart';
+import 'package:plinco/services/images_service.dart';
 import 'package:plinco/theme/app_colors.dart';
 import 'package:plinco/widgets/common/stroke_text.dart';
 
@@ -33,8 +34,8 @@ class AppButton extends StatelessWidget {
       onTap: onTap,
       child: Stack(
         children: [
-          Image.network(
-            assets['${type.name}_menu_btn']!,
+          Image.file(
+            ImagesService().getByFilename(assets['${type.name}_menu_btn']!)!,
             width: _getCustomWidth(),
             height: type == AppButtonType.main ? 120 : 80,
           ),

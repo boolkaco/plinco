@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plinco/services/images_service.dart';
 import 'package:plinco/widgets/common/oval_gradient_container.dart';
 
 class BackgroundWrapper extends StatelessWidget {
@@ -9,7 +10,7 @@ class BackgroundWrapper extends StatelessWidget {
   const BackgroundWrapper({
     Key? key,
     required this.child,
-    this.backgroundUrl = 'https://plincogame.com/assets/images/bg.png',
+    this.backgroundUrl = '/assets/images/bg.png',
     this.opacity = 0.5,
   }) : super(key: key);
 
@@ -26,8 +27,8 @@ class BackgroundWrapper extends StatelessWidget {
         Positioned.fill(
           child: Opacity(
             opacity: opacity,
-            child: Image.network(
-              backgroundUrl,
+            child: Image.file(
+              ImagesService().getByFilename(backgroundUrl)!,
               fit: BoxFit.cover,
             ),
           ),

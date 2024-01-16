@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plinco/const/assets.dart';
+import 'package:plinco/services/images_service.dart';
 
 class ScoreStars extends StatelessWidget {
   final int score;
@@ -13,7 +14,9 @@ class ScoreStars extends StatelessWidget {
         SizedBox(
           height: 80,
           width: 133,
-          child: Image.network(assets['stars']!),
+          child: Image.file(
+            ImagesService().getByFilename(assets['stars']!)!,
+          ),
         ),
         if (score >= 1)
           Positioned(
@@ -24,7 +27,9 @@ class ScoreStars extends StatelessWidget {
               child: SizedBox(
                 height: 40,
                 width: 40,
-                child: Image.network(assets['filled_star']!),
+                child: Image.file(
+                  ImagesService().getByFilename(assets['filled_star']!)!,
+                ),
               ),
             ),
           ),
@@ -32,7 +37,9 @@ class ScoreStars extends StatelessWidget {
           Positioned.fill(
             top: 4,
             bottom: 14,
-            child: Image.network(assets['filled_star']!),
+            child: Image.file(
+              ImagesService().getByFilename(assets['filled_star']!)!,
+            ),
           ),
         if (score >= 3)
           Positioned(
@@ -43,7 +50,9 @@ class ScoreStars extends StatelessWidget {
               child: SizedBox(
                 height: 40,
                 width: 40,
-                child: Image.network(assets['filled_star']!),
+                child: Image.file(
+                  ImagesService().getByFilename(assets['filled_star']!)!,
+                ),
               ),
             ),
           ),
