@@ -39,7 +39,7 @@ class LevelSelectMenu extends StatelessWidget {
                     right: isRightPlay ? 20 : null,
                     left: isRightPlay ? null : 20,
                     child: Image.file(
-                      ImagesService().getByFilename(assets['play_btn']!)!,
+                      ImagesService().getByFilename(assetsMap['play_btn']!)!,
                       width: 57,
                       height: 62,
                     ),

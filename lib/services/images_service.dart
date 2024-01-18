@@ -17,7 +17,7 @@ class ImagesService {
 
   Future<ImageComposition.Image?> getImageByFilename(String fileName) async {
     try {
-      final file = getByFilename(basePath + fileName);
+      final file = _imageCaches[basePath + fileName];
       if (file == null) return null;
 
       final bytes = await file.readAsBytes();

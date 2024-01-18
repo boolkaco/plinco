@@ -15,7 +15,7 @@ class ScoreStars extends StatelessWidget {
           height: 80,
           width: 133,
           child: Image.file(
-            ImagesService().getByFilename(assets['stars']!)!,
+            ImagesService().getByFilename(assetsMap['stars']!)!,
           ),
         ),
         if (score >= 1)
@@ -28,7 +28,7 @@ class ScoreStars extends StatelessWidget {
                 height: 40,
                 width: 40,
                 child: Image.file(
-                  ImagesService().getByFilename(assets['filled_star']!)!,
+                  ImagesService().getByFilename(assetsMap['filled_star']!)!,
                 ),
               ),
             ),
@@ -38,7 +38,7 @@ class ScoreStars extends StatelessWidget {
             top: 4,
             bottom: 14,
             child: Image.file(
-              ImagesService().getByFilename(assets['filled_star']!)!,
+              ImagesService().getByFilename(assetsMap['filled_star']!)!,
             ),
           ),
         if (score >= 3)
@@ -51,7 +51,7 @@ class ScoreStars extends StatelessWidget {
                 height: 40,
                 width: 40,
                 child: Image.file(
-                  ImagesService().getByFilename(assets['filled_star']!)!,
+                  ImagesService().getByFilename(assetsMap['filled_star']!)!,
                 ),
               ),
             ),

@@ -18,10 +18,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      for (var asset in assets.values) {
+      for (var asset in assetsMap.values) {
         await ImageLoader().loadImage(asset);
       }
-      
+
       Future.delayed(const Duration(seconds: 0), () {
         Navigator.pushReplacement(
           context,

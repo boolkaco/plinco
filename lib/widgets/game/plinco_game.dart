@@ -3,31 +3,35 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
+import 'package:flame/src/image_composition.dart' as ImageComposition;
 import 'package:flame/input.dart';
 import 'package:flame/parallax.dart';
 import 'package:flutter/material.dart';
+import 'package:plinco/const/assets.dart';
+import 'package:plinco/models/level_model.dart';
+import 'package:plinco/services/images_service.dart';
+import 'package:plinco/widgets/game/cannon.dart';
+import 'package:plinco/widgets/game/cannon_ball.dart';
+import 'package:plinco/widgets/game/enemy.dart';
 
+class PlincoGame extends FlameGame with PanDetector, HasCollisionDetection {
+  final LevelModel level;
+  late Cannon cannon;
 
-class PlincoGame extends FlameGame
-    with PanDetector, HasCollisionDetection {
-  late Player player;
+  PlincoGame({required this.level});
 
   @override
   Future<void> onLoad() async {
-    final parallax = await loadParallaxComponent(
-      [
-        ParallaxImageData('space/stars_0.png'),
-        ParallaxImageData('space/stars_1.png'),
-        ParallaxImageData('space/stars_2.png'),
-      ],
-      baseVelocity: Vector2(0, -5),
-      repeat: ImageRepeat.repeat,
-      velocityMultiplierDelta: Vector2(0, 5),
-    );
-    add(parallax);
+    final ImageComposition.Image? bg2 =
+        await ImagesService().getImageByFilename(level.backgroundUrl);
+    if (bg2 != null) {
+      final sprite = Sprite(bg2);
+      final spriteComponent = SpriteComponent(sprite: sprite, size: size);
+      add(spriteComponent);
+    }
 
-    player = Player();
-    add(player);
+    cannon = Cannon()..position = size / 2;
+    add(cannon);
 
     add(
       SpawnComponent(
@@ -42,74 +46,15 @@ class PlincoGame extends FlameGame
 
   @override
   void onPanUpdate(DragUpdateInfo info) {
-    player.move(info.delta.global);
+    cannon.move(info.delta.global);
   }
 
   @override
   void onPanStart(DragStartInfo info) {
-    player.startShooting();
-  }
-
-  @override
-  void onPanEnd(DragEndInfo info) {
-    player.stopShooting();
-  }
-}
-
-class Player extends SpriteAnimationComponent
-    with HasGameReference<PlincoGame> {
-  Player()
-      : super(
-    size: Vector2(100, 150),
-    anchor: Anchor.center,
-  );
-
-  late final SpawnComponent _bulletSpawner;
-
-  @override
-  Future<void> onLoad() async {
-    await super.onLoad();
-
-    animation = await game.loadSpriteAnimation(
-      'space/player.png',
-      SpriteAnimationData.sequenced(
-        amount: 4,
-        stepTime: .2,
-        textureSize: Vector2(32, 48),
-      ),
-    );
-
-    position = game.size / 2;
-
-    _bulletSpawner = SpawnComponent(
-      period: .2,
-      selfPositioning: true,
-      factory: (index) {
-        return Bullet(
-          position: position +
-              Vector2(
-                -200,
-                -height / 2,
-              ),
-        );
-      },
-      autoStart: false,
-    );
-
-    add(_bulletSpawner);
-  }
-
-  void move(Vector2 delta) {
-    position.add(delta);
-    // print('Player position move: $position'); // Добавьте отладочный вывод
-  }
-
-  void startShooting() {
-    _bulletSpawner.timer.start();
-  }
-
-  void stopShooting() {
-    _bulletSpawner.timer.stop();
+    final cannonBall = CannonBall()
+      ..position = cannon.position +
+          Vector2(0, -cannon.size.y / 4 - CannonBall.ballSize.y / 4);
+    add(cannonBall);
   }
 }
 
@@ -118,9 +63,9 @@ class Bullet extends SpriteAnimationComponent
   Bullet({
     super.position,
   }) : super(
-    size: Vector2(25, 50),
-    anchor: Anchor.center,
-  );
+          size: Vector2(25, 50),
+          anchor: Anchor.center,
+        );
 
   @override
   Future<void> onLoad() async {
@@ -146,65 +91,10 @@ class Bullet extends SpriteAnimationComponent
   void update(double dt) {
     super.update(dt);
 
-
     position.y += dt * -100;
 
     if (position.y < -height) {
       removeFromParent();
-    }
-  }
-}
-
-class Enemy extends SpriteAnimationComponent
-    with HasGameReference<PlincoGame>, CollisionCallbacks {
-  Enemy({
-    super.position,
-  }) : super(
-    size: Vector2.all(enemySize),
-    anchor: Anchor.center,
-  );
-
-  static const enemySize = 50.0;
-
-  @override
-  Future<void> onLoad() async {
-    await super.onLoad();
-
-    animation = await game.loadSpriteAnimation(
-      'space/enemy.png',
-      SpriteAnimationData.sequenced(
-        amount: 4,
-        stepTime: .2,
-        textureSize: Vector2.all(16),
-      ),
-    );
-
-    add(RectangleHitbox());
-  }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-    // print('Bullet position update2: $position'); // Добавьте отладочный вывод
-
-    position.y += dt * 250;
-
-    if (position.y > game.size.y) {
-      removeFromParent();
-    }
-  }
-
-  @override
-  void onCollisionStart(
-      Set<Vector2> intersectionPoints,
-      PositionComponent other,
-      ) {
-    super.onCollisionStart(intersectionPoints, other);
-
-    if (other is Bullet) {
-      removeFromParent();
-      other.removeFromParent();
-      game.add(Explosion(position: position));
     }
   }
 }
@@ -214,10 +104,10 @@ class Explosion extends SpriteAnimationComponent
   Explosion({
     super.position,
   }) : super(
-    size: Vector2.all(150),
-    anchor: Anchor.center,
-    removeOnFinish: true,
-  );
+          size: Vector2.all(150),
+          anchor: Anchor.center,
+          removeOnFinish: true,
+        );
 
   @override
   Future<void> onLoad() async {

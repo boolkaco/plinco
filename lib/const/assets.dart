@@ -1,4 +1,4 @@
-Map<String, String> assets = {
+Map<String, String> assetsMap = {
   'bg': '/assets/images/bg.png',
   'logo': '/assets/images/Logo_Plinco.png',
   'level_1_bg': '/assets/images/levels/level_1_bg.png',
@@ -21,4 +21,7 @@ Map<String, String> assets = {
   'coin_icon': '/assets/images/elements/coin_icon.png',
   'filled_star': '/assets/images/elements/filled_star.png',
   'stars': '/assets/images/elements/stars.png',
+  'gun': '/assets/images/elements/gun.png',
+  'gun_back': '/assets/images/elements/gun_back.png',
+  'ball': '/assets/images/elements/ball.png',
 };

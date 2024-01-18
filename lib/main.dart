@@ -11,7 +11,7 @@ void main() async {
   EasyLocalization.logger.enableBuildModes = [];
   await EasyLocalization.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  await ImageLoader().loadImage(assets['bg']!);
+  await ImageLoader().loadImage(assetsMap['bg']!);
 
   runApp(
     EasyLocalization(

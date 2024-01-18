@@ -31,7 +31,7 @@ class GameOverlay extends StatelessWidget {
             );
           },
           child: Image.file(
-            ImagesService().getByFilename(assets['home_btn']!)!,
+            ImagesService().getByFilename(assetsMap['home_btn']!)!,
             width: 59,
             height: 62,
           ),
@@ -49,7 +49,7 @@ class GameOverlay extends StatelessWidget {
                 Row(
                   children: [
                     Image.file(
-                      ImagesService().getByFilename(assets['coin_icon']!)!,
+                      ImagesService().getByFilename(assetsMap['coin_icon']!)!,
                       width: 28,
                       height: 30,
                     ),
@@ -67,7 +67,7 @@ class GameOverlay extends StatelessWidget {
                 Row(
                   children: [
                     Image.file(
-                      ImagesService().getByFilename(assets['ball_icon']!)!,
+                      ImagesService().getByFilename(assetsMap['ball_icon']!)!,
                       width: 28,
                       height: 30,
                     ),
@@ -99,7 +99,7 @@ class GameOverlay extends StatelessWidget {
             );
           },
           child: Image.file(
-            ImagesService().getByFilename(assets['settings_btn']!)!,
+            ImagesService().getByFilename(assetsMap['settings_btn']!)!,
             width: 59,
             height: 62,
           ),

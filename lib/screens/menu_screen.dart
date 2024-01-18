@@ -56,7 +56,7 @@ class _MenuScreenState extends State<MenuScreen> {
               height: 114,
             ),
             Image.file(
-              ImagesService().getByFilename(assets['logo']!)!,
+              ImagesService().getByFilename(assetsMap['logo']!)!,
               fit: BoxFit.cover,
             ),
             if (_isLoaded)
@@ -77,7 +77,7 @@ class _MenuScreenState extends State<MenuScreen> {
             else
               Expanded(
                 child: Image.file(
-                  ImagesService().getByFilename(assets['ball_decoration']!)!,
+                  ImagesService().getByFilename(assetsMap['ball_decoration']!)!,
                   fit: BoxFit.contain,
                 ),
               )

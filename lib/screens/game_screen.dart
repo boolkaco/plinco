@@ -20,7 +20,9 @@ class GameScreen extends StatelessWidget {
         body: Stack(
           children: [
             GameWidget<PlincoGame>(
-              game: PlincoGame(),
+              game: PlincoGame(
+                level: level,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 60, right: 35, left: 35),

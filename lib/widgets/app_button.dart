@@ -35,7 +35,7 @@ class AppButton extends StatelessWidget {
       child: Stack(
         children: [
           Image.file(
-            ImagesService().getByFilename(assets['${type.name}_menu_btn']!)!,
+            ImagesService().getByFilename(assetsMap['${type.name}_menu_btn']!)!,
             width: _getCustomWidth(),
             height: type == AppButtonType.main ? 120 : 80,
           ),

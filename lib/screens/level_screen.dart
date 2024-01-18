@@ -23,7 +23,7 @@ class LevelScreen extends StatelessWidget {
               height: 114,
             ),
             Image.file(
-              ImagesService().getByFilename(assets['logo']!)!,
+              ImagesService().getByFilename(assetsMap['logo']!)!,
               fit: BoxFit.cover,
             ),
             AppButton(
@@ -63,7 +63,7 @@ class LevelScreen extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: Image.file(
-                    ImagesService().getByFilename(assets['back_btn']!)!,
+                    ImagesService().getByFilename(assetsMap['back_btn']!)!,
                     fit: BoxFit.fill,
                     width: 57,
                     height: 61,
