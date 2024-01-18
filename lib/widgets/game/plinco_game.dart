@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -12,11 +14,15 @@ import 'package:plinco/models/level_model.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/widgets/game/cannon.dart';
 import 'package:plinco/widgets/game/cannon_ball.dart';
-import 'package:plinco/widgets/game/enemy.dart';
+import 'package:plinco/widgets/game/planet.dart';
 
 class PlincoGame extends FlameGame with PanDetector, HasCollisionDetection {
+  static final Random _random = Random();
   final LevelModel level;
   late Cannon cannon;
+  final int maxPlanets = 4;
+  final List<MovingPlanet> planets = [];
+  final Set<int> availablePlanets = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
   PlincoGame({required this.level});
 
@@ -33,15 +39,26 @@ class PlincoGame extends FlameGame with PanDetector, HasCollisionDetection {
     cannon = Cannon()..position = size / 2;
     add(cannon);
 
-    add(
-      SpawnComponent(
-        factory: (index) {
-          return Enemy();
-        },
-        period: 1,
-        area: Rectangle.fromLTWH(0, 0, size.x, -Enemy.enemySize),
-      ),
-    );
+    spawnPlanet();
+  }
+
+  void spawnPlanet() {
+    if (planets.length < maxPlanets && availablePlanets.isNotEmpty) {
+      final index = availablePlanets.elementAt(_random.nextInt(availablePlanets.length));
+      availablePlanets.remove(index);
+      final movingPlanet = MovingPlanet(index);
+      add(movingPlanet);
+      planets.add(movingPlanet);
+    }
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    planets.removeWhere((planet) => planet.isRemoved);
+    if (planets.length < maxPlanets) {
+      spawnPlanet();
+    }
   }
 
   @override
