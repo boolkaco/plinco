@@ -25,4 +25,7 @@ Map<String, String> assetsMap = {
   'gun_back': '/assets/images/elements/gun_back.png',
   'ball': '/assets/images/elements/ball.png',
   'boom': '/assets/images/elements/boom.png',
+  'settings_decoration': '/assets/images/elements/settings_decoration.png',
+  'checkbox_active': '/assets/images/elements/checkbox_active.png',
+  'checkbox_disable': '/assets/images/elements/checkbox_disable.png',
 };

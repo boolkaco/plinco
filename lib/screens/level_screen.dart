@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/screens/game_screen.dart';
+import 'package:plinco/screens/privacy_screen.dart';
+import 'package:plinco/screens/settings_screen.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/app_button.dart';
@@ -32,9 +34,8 @@ class LevelScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) => GameScreen(
-                      level: level
-                    ),
+                    pageBuilder: (context, animation1, animation2) =>
+                        GameScreen(level: level),
                     transitionDuration: Duration.zero,
                     reverseTransitionDuration: Duration.zero,
                   ),
@@ -47,7 +48,17 @@ class LevelScreen extends StatelessWidget {
             AppButton(
               label: "settings".tr(),
               type: AppButtonType.left,
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        const SettingsScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
+                );
+              },
             ),
             const SizedBox(
               height: 20,
@@ -55,7 +66,17 @@ class LevelScreen extends StatelessWidget {
             AppButton(
               label: "privacy".tr(),
               type: AppButtonType.right,
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) =>
+                        PrivacyScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
+                );
+              },
             ),
             Expanded(
               child: Align(

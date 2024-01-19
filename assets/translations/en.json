@@ -3,5 +3,7 @@
   "loading": "Loading...",
   "start": "Start",
   "settings": "Settings",
-  "privacy": "Privacy Policy"
+  "privacy": "Privacy Policy",
+  "main_sound": "Main sound",
+  "button_sound": "Button sound"
 }
