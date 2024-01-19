@@ -7,7 +7,7 @@ import 'package:flame/src/image_composition.dart' as ImageComposition;
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/widgets/game/cannon.dart';
-import 'package:plinco/widgets/game/planet.dart';
+import 'package:plinco/widgets/game/moving_planet.dart';
 
 class PlincoGame extends FlameGame with PanDetector, HasCollisionDetection {
   static final Random _random = Random();

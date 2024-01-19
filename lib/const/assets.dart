@@ -24,4 +24,5 @@ Map<String, String> assetsMap = {
   'gun': '/assets/images/elements/gun.png',
   'gun_back': '/assets/images/elements/gun_back.png',
   'ball': '/assets/images/elements/ball.png',
+  'boom': '/assets/images/elements/boom.png',
 };
