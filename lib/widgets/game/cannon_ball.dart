@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:flame/game.dart';
 import 'package:flame/src/image_composition.dart' as ImageComposition;
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/services/images_service.dart';

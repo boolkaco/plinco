@@ -17,12 +17,14 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
   void shoot() {
     if (_isBallLoaded) {
       final cannonBall = CannonBall()
-        ..position =
-            position + Vector2(0, -size.y / 4 - CannonBall.ballSize.y / 4);
+        ..position = position +
+            Vector2(0, -size.y / 4 - CannonBall.ballSize.y / 4);
       gameRef.add(cannonBall);
       _isBallLoaded = false;
 
+      removeFromParent();
       remove(_cannonBall);
+      gameRef.add(this);
     }
   }
 
