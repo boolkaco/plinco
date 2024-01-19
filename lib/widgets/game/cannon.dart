@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/src/image_composition.dart' as ImageComposition;
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/services/images_service.dart';
+import 'package:plinco/widgets/game/cannon_ball.dart';
 import 'package:plinco/widgets/game/plinco_game.dart';
 
 class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
@@ -10,6 +11,26 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
   late SpriteComponent _cannonBall;
 
   Cannon() : super(anchor: Anchor.bottomCenter);
+
+  bool _isBallLoaded = true;
+
+  void shoot() {
+    if (_isBallLoaded) {
+      final cannonBall = CannonBall()
+        ..position =
+            position + Vector2(0, -size.y / 4 - CannonBall.ballSize.y / 4);
+      gameRef.add(cannonBall);
+      _isBallLoaded = false;
+
+      remove(_cannonBall);
+    }
+  }
+
+  void reload() {
+    _isBallLoaded = true;
+    add(_cannonBall);
+    add(_cannonTop);
+  }
 
   @override
   Future<void> onLoad() async {

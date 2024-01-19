@@ -32,6 +32,7 @@ class CannonBall extends SpriteComponent with HasGameRef<PlincoGame> {
 
     if (position.y < 0) {
       removeFromParent();
+      gameRef.cannon.reload();
     }
   }
 }
