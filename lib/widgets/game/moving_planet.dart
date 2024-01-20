@@ -1,7 +1,9 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/flame.dart';
+import 'package:plinco/const/assets.dart';
+import 'package:plinco/services/images_service.dart';
 import 'package:plinco/widgets/game/cannon_ball.dart';
 import 'package:plinco/widgets/game/explosion.dart';
 import 'package:plinco/widgets/game/plinco_game.dart';
@@ -28,7 +30,10 @@ class MovingPlanet extends SpriteComponent
     await super.onLoad();
 
     final imageIndex = Random().nextInt(10) + 1;
-    sprite = await gameRef.loadSprite('planet_$imageIndex.png');
+    Image? planetImage = await ImagesService().getImageByFilename(
+      assetsMap['planet_$imageIndex']!,
+    );
+    sprite = Sprite(planetImage!);
 
     speed = _random.nextDouble() * (300 - 100) + 100;
     movingLeft = _random.nextBool();
@@ -76,9 +81,11 @@ class MovingPlanet extends SpriteComponent
     super.onCollisionStart(intersectionPoints, other);
     if (other is CannonBall && !_isExploding) {
       _isExploding = true;
-      final explosionSprite = await Flame.images.load('boom.png');
+      Image? explosionImage = await ImagesService().getImageByFilename(
+        assetsMap['boom']!,
+      );
       final explosion = Explosion(
-        image: explosionSprite,
+        image: explosionImage!,
         position: position.clone() + Vector2(-50, -50),
       );
       gameRef.add(explosion);
