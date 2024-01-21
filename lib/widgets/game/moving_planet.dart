@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:plinco/const/assets.dart';
+import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/widgets/game/cannon_ball.dart';
 import 'package:plinco/widgets/game/explosion.dart';
@@ -21,6 +22,8 @@ class MovingPlanet extends SpriteComponent
           anchor: Anchor.center,
           size: Vector2.all(100.0),
         );
+
+  final AudioService audioService = AudioService();
 
   bool _isExploding = false;
   final double hitboxRatio = 0.6;
@@ -88,6 +91,7 @@ class MovingPlanet extends SpriteComponent
         image: explosionImage!,
         position: position.clone() + Vector2(-50, -50),
       );
+      audioService.playSound('boom_sound');
       gameRef.add(explosion);
       removeFromParent();
       other.removeFromParent();

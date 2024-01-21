@@ -3,13 +3,16 @@ import 'package:plinco/const/assets.dart';
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/screens/level_screen.dart';
 import 'package:plinco/screens/menu_screen.dart';
+import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/theme/app_colors.dart';
 
 class GameOverlay extends StatelessWidget {
   final LevelModel level;
 
-  const GameOverlay({super.key, required this.level});
+  GameOverlay({super.key, required this.level});
+
+  final AudioService audioService = AudioService();
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +21,7 @@ class GameOverlay extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
+            audioService.playSound('buttons_sound');
             Navigator.push(
               context,
               PageRouteBuilder(
@@ -88,6 +92,7 @@ class GameOverlay extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
+            audioService.playSound('buttons_sound');
             Navigator.push(
               context,
               PageRouteBuilder(

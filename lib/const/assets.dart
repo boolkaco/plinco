@@ -39,3 +39,10 @@ Map<String, String> assetsMap = {
   'planet_9': '/assets/images/planets_sprite/planet_9.png',
   'planet_10': '/assets/images/planets_sprite/planet_10.png',
 };
+
+Map<String, String> soundsMap = {
+  'background_sound': '/assets/music/background.mp3',
+  'boom_sound': '/assets/music/boom.mp3',
+  'buttons_sound': '/assets/music/buttons.mp3',
+  'gun_sound': '/assets/music/gun.mp3',
+};

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plinco/const/assets.dart';
+import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/theme/app_colors.dart';
 import 'package:plinco/widgets/common/stroke_text.dart';
@@ -10,8 +11,9 @@ class AppButton extends StatelessWidget {
   final AppButtonType type;
   final String label;
   final Function() onTap;
+  final AudioService audioService = AudioService();
 
-  const AppButton({
+  AppButton({
     super.key,
     required this.label,
     required this.onTap,
@@ -31,7 +33,10 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        audioService.playSound('buttons_sound');
+        onTap();
+      },
       child: Stack(
         children: [
           Image.file(

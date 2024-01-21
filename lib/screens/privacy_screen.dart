@@ -1,9 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:plinco/const/assets.dart';
-import 'package:plinco/services/images_service.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
+import 'package:plinco/widgets/back_button.dart';
 import 'package:plinco/widgets/common/stroke_text.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -48,15 +47,7 @@ class PrivacyScreen extends StatelessWidget {
           Expanded(child: WebViewWidget(controller: controller)),
           Align(
             alignment: Alignment.bottomCenter,
-            child: GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Image.file(
-                ImagesService().getByFilename(assetsMap['back_btn']!)!,
-                fit: BoxFit.fill,
-                width: 57,
-                height: 61,
-              ),
-            ),
+            child: AppBackButton(),
           ),
           const SizedBox(
             height: 62,

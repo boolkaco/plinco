@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/src/image_composition.dart' as ImageComposition;
 import 'package:plinco/const/assets.dart';
+import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/widgets/game/cannon_ball.dart';
 import 'package:plinco/widgets/game/plinco_game.dart';
@@ -12,6 +13,8 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
 
   Cannon() : super(anchor: Anchor.bottomCenter);
 
+  final AudioService audioService = AudioService();
+
   bool _isBallLoaded = true;
 
   void shoot() {
@@ -20,6 +23,7 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
         ..position = position +
             Vector2(0, -size.y / 4 - CannonBall.ballSize.y / 4);
       gameRef.add(cannonBall);
+      audioService.playSound('gun_sound');
       _isBallLoaded = false;
 
       removeFromParent();

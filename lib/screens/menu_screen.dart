@@ -3,6 +3,7 @@ import 'package:plinco/const/assets.dart';
 import 'package:plinco/const/levels.dart';
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/screens/level_screen.dart';
+import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/menu/level_select_menu.dart';
@@ -17,6 +18,7 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+  final AudioService audioService = AudioService();
   late bool _isLoaded;
 
   @override
@@ -31,6 +33,7 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   void _selectLevel(LevelModel level) {
+    audioService.playSound('buttons_sound');
     Navigator.push(
       context,
       PageRouteBuilder(

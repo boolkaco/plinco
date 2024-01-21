@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
+import 'package:plinco/widgets/back_button.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -114,15 +115,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Image.file(
-                    ImagesService().getByFilename(assetsMap['back_btn']!)!,
-                    fit: BoxFit.fill,
-                    width: 57,
-                    height: 61,
-                  ),
-                ),
+                child: AppBackButton(),
               ),
             ),
             const SizedBox(

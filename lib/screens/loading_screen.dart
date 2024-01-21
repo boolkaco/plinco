@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/screens/menu_screen.dart';
+import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/utils/image_loader.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/common/stroke_text.dart';
@@ -14,6 +15,8 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  final AudioService _audioService = AudioService();
+
   @override
   void initState() {
     super.initState();
@@ -21,6 +24,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
       for (var asset in assetsMap.values) {
         await ImageLoader().loadImage(asset);
       }
+
+      await _audioService.loadSounds(soundsMap);
+
+      _audioService.stopBackgroundMusic();
+      _audioService.loopSound('background_sound');
 
       Future.delayed(const Duration(seconds: 0), () {
         Navigator.pushReplacement(

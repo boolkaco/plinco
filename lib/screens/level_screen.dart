@@ -8,6 +8,7 @@ import 'package:plinco/screens/settings_screen.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/app_button.dart';
+import 'package:plinco/widgets/back_button.dart';
 
 class LevelScreen extends StatelessWidget {
   final LevelModel level;
@@ -81,15 +82,7 @@ class LevelScreen extends StatelessWidget {
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Image.file(
-                    ImagesService().getByFilename(assetsMap['back_btn']!)!,
-                    fit: BoxFit.fill,
-                    width: 57,
-                    height: 61,
-                  ),
-                ),
+                child: AppBackButton(),
               ),
             ),
             const SizedBox(
