@@ -4,36 +4,22 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/back_button.dart';
 import 'package:plinco/widgets/common/stroke_text.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
 
 class PrivacyScreen extends StatelessWidget {
-  PrivacyScreen({
-    super.key,
-  });
+  PrivacyScreen({super.key});
 
-  final WebViewController controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(Colors.transparent)
-    ..setNavigationDelegate(
-      NavigationDelegate(
-        onProgress: (int progress) {
-          // Update loading bar.
-        },
-        onPageStarted: (String url) {},
-        onPageFinished: (String url) {},
-        onWebResourceError: (WebResourceError error) {},
-        onNavigationRequest: (NavigationRequest request) {
-          if (request.url.startsWith('${dotenv.env['BASE_PATH']!}/privacy')) {
-            return NavigationDecision.prevent;
-          }
-          return NavigationDecision.navigate;
-        },
-      ),
-    )
-    ..loadRequest(Uri.parse('${dotenv.env['BASE_PATH']!}/privacy'));
+  final PlatformWebViewController controller = PlatformWebViewController(
+    WebKitWebViewControllerCreationParams(allowsInlineMediaPlayback: true),
+  )..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..setBackgroundColor(Colors.transparent);
 
   @override
   Widget build(BuildContext context) {
+    String privacyUrl = '${dotenv.env['BASE_PATH']}/privacy';
+    controller.loadRequest(LoadRequestParams(uri: Uri.parse(privacyUrl)));
+
     return BackgroundWrapper(
       child: Column(
         children: [
@@ -44,7 +30,12 @@ class PrivacyScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Expanded(child: WebViewWidget(controller: controller)),
+          Expanded(child: PlatformWebViewWidget(
+            PlatformWebViewWidgetCreationParams(controller: controller),
+          ).build(context)),
+          const SizedBox(
+            height: 12,
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: AppBackButton(),
