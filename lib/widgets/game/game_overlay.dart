@@ -26,7 +26,9 @@ class GameOverlay extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                audioService.playSound('buttons_sound');
+                if (context.read<AppCubit>().state.isButtonsSound) {
+                  audioService.playSound('buttons_sound');
+                }
                 Navigator.push(
                   context,
                   PageRouteBuilder(
@@ -97,7 +99,9 @@ class GameOverlay extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                audioService.playSound('buttons_sound');
+                if (context.read<AppCubit>().state.isButtonsSound) {
+                  audioService.playSound('buttons_sound');
+                }
                 Navigator.push(
                   context,
                   PageRouteBuilder(

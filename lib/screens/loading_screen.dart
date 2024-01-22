@@ -6,6 +6,7 @@ import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/utils/image_loader.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/common/stroke_text.dart';
+import 'package:provider/provider.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -15,8 +16,6 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  final AudioService _audioService = AudioService();
-
   @override
   void initState() {
     super.initState();
@@ -25,10 +24,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
         await ImageLoader().loadImage(asset);
       }
 
-      await _audioService.loadSounds(soundsMap);
+      await context.read<AudioService>().loadSounds(soundsMap);
 
-      _audioService.stopBackgroundMusic();
-      _audioService.loopSound('background_sound');
+      context.read<AudioService>().stopBackgroundMusic();
+      context.read<AudioService>().loopSound('background_sound');
 
       Future.delayed(const Duration(seconds: 0), () {
         Navigator.pushReplacement(

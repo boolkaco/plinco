@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plinco/bloc/app/app_cubit.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
@@ -34,7 +36,9 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        audioService.playSound('buttons_sound');
+        if (context.read<AppCubit>().state.isButtonsSound) {
+          audioService.playSound('buttons_sound');
+        }
         onTap();
       },
       child: Stack(

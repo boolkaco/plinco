@@ -7,16 +7,39 @@ class AppCubit extends Cubit<AppState> {
   AppCubit() : super(const AppState());
 
   void addScore(int points) {
-    emit(AppState(score: state.score + points, balls: state.balls));
+    emit(state.copyWith(
+      score: state.score + points,
+      balls: state.balls,
+    ));
   }
 
   void useBall() {
     if (state.balls > 0) {
-      emit(AppState(score: state.score, balls: state.balls - 1));
+      emit(state.copyWith(
+        score: state.score,
+        balls: state.balls - 1,
+      ));
     }
   }
 
   void resetGame() {
-    emit(const AppState());
+    emit(state.copyWith(
+      balls: 10,
+      score: 0,
+      isButtonsSound: state.isButtonsSound,
+      isBackgroundSound: state.isBackgroundSound,
+    ));
+  }
+
+  void updateBackgroundSound() {
+    emit(state.copyWith(
+      isBackgroundSound: !state.isBackgroundSound,
+    ));
+  }
+
+  void updateButtonsSound() {
+    emit(state.copyWith(
+      isButtonsSound: !state.isButtonsSound,
+    ));
   }
 }

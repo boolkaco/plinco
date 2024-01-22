@@ -68,7 +68,9 @@ class _EndScreenState extends State<EndScreen> {
             ),
             GestureDetector(
               onTap: () {
-                audioService.playSound('buttons_sound');
+                if (context.read<AppCubit>().state.isButtonsSound) {
+                  audioService.playSound('buttons_sound');
+                }
                 BlocProvider.of<AppCubit>(context).resetGame();
                 Navigator.push(
                   context,

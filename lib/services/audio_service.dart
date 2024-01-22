@@ -45,4 +45,12 @@ class AudioService {
     await _audioPlayer.stop();
     isBackgroundMusicPlaying = false;
   }
+
+  Future<void> muteBackgroundMusic() async {
+    await _audioPlayer.setVolume(0);
+  }
+
+  Future<void> unMuteBackgroundMusic() async {
+    await _audioPlayer.setVolume(1);
+  }
 }
