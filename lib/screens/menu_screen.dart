@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plinco/bloc/app/app_cubit.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/const/levels.dart';
@@ -64,45 +65,47 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final levels = Levels.list;
-
-    return BackgroundWrapper(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Column(
-          children: [
-            const SizedBox(
-              height: 114,
-            ),
-            Image.file(
-              ImagesService().getByFilename(assetsMap['logo']!)!,
-              fit: BoxFit.cover,
-            ),
-            if (_isLoaded)
-              Expanded(
-                child: ListView.builder(
-                  padding: const EdgeInsets.all(0),
-                  itemCount: levels.length,
-                  itemBuilder: (context, index) {
-                    return LevelSelectMenu(
-                      backgroundUrl: levels[index].previewUrl,
-                      isRightPlay: index % 2 == 0,
-                      score: 0,
-                      onTap: () => _selectLevel(levels[index]),
-                    );
-                  },
+    return BlocBuilder<AppCubit, AppState>(
+      builder: (context, appState) {
+        return BackgroundWrapper(
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Column(
+              children: [
+                const SizedBox(
+                  height: 114,
                 ),
-              )
-            else
-              Expanded(
-                child: Image.file(
-                  ImagesService().getByFilename(assetsMap['ball_decoration']!)!,
-                  fit: BoxFit.contain,
+                Image.file(
+                  ImagesService().getByFilename(assetsMap['logo']!)!,
+                  fit: BoxFit.cover,
                 ),
-              )
-          ],
-        ),
-      ),
+                if (_isLoaded)
+                  Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(0),
+                      itemCount: appState.levels.length,
+                      itemBuilder: (context, index) {
+                        return LevelSelectMenu(
+                          backgroundUrl: appState.levels[index].previewUrl,
+                          isRightPlay: index % 2 == 0,
+                          score: appState.levels[index].stars,
+                          onTap: () => _selectLevel(appState.levels[index]),
+                        );
+                      },
+                    ),
+                  )
+                else
+                  Expanded(
+                    child: Image.file(
+                      ImagesService().getByFilename(assetsMap['ball_decoration']!)!,
+                      fit: BoxFit.contain,
+                    ),
+                  )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

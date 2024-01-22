@@ -11,7 +11,9 @@ import 'package:plinco/widgets/game/plinco_game.dart';
 class GameScreen extends StatelessWidget {
   final LevelModel level;
 
-  const GameScreen({super.key, required this.level});
+  GameScreen({super.key, required this.level});
+
+  final GlobalKey<GameWidgetState> gameKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class GameScreen extends StatelessWidget {
         body: Stack(
           children: [
             GameWidget<PlincoGame>(
+              key: gameKey,
               game: PlincoGame(
                 level: level,
                 appCubit: context.read<AppCubit>(),
@@ -35,12 +38,17 @@ class GameScreen extends StatelessWidget {
                   BlocListener<AppCubit, AppState>(
                     listener: (context, state) {
                       if (state.score >= 700 || state.balls == 0) {
+                        final isWon = state.score >= 700;
+                        final plincoGameState =
+                            gameKey.currentState as GameWidgetState<PlincoGame>;
+                        final plincoGame = plincoGameState.widget.game;
+                        plincoGame?.finishLevel(isWon);
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => EndScreen(
                               level: level,
-                              isWon: state.score >= 700,
+                              isWon: isWon,
                             ),
                           ),
                         );

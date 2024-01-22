@@ -18,6 +18,7 @@ class PlincoGame extends FlameGame with PanDetector, HasCollisionDetection {
   final List<MovingPlanet> planets = [];
   final Set<int> availablePlanets = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   final AppCubit appCubit;
+  double timeElapsed = 0.0;
 
   PlincoGame({
     required this.level,
@@ -40,6 +41,30 @@ class PlincoGame extends FlameGame with PanDetector, HasCollisionDetection {
     add(cannon);
 
     spawnPlanet();
+    startTimer();
+  }
+
+  void startTimer() {
+    timeElapsed = 0.0;
+  }
+
+  void updateTimer(double dt) {
+    timeElapsed += dt;
+  }
+
+  void finishLevel(bool isWon) {
+    int stars;
+    if (timeElapsed <= 10) {
+      stars = 3;
+    } else if (timeElapsed <= 20) {
+      stars = 2;
+    } else {
+      stars = 0;
+    }
+    if (!isWon) {
+      stars = 0;
+    }
+    appCubit.finishLevel(level, stars);
   }
 
   void spawnPlanet() {
@@ -60,6 +85,7 @@ class PlincoGame extends FlameGame with PanDetector, HasCollisionDetection {
   @override
   void update(double dt) {
     super.update(dt);
+    updateTimer(dt);
     planets.removeWhere((planet) => planet.isRemoved);
     if (planets.length < maxPlanets) {
       spawnPlanet();

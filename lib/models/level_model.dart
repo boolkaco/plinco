@@ -2,6 +2,7 @@ class LevelModel {
   final int maxPlanet;
   final int minSpeedPlanet;
   final int maxSpeedPlanet;
+  final int stars;
   final String backgroundUrl;
   final String previewUrl;
 
@@ -11,5 +12,17 @@ class LevelModel {
     required this.maxSpeedPlanet,
     required this.backgroundUrl,
     required this.previewUrl,
+    this.stars = 0,
   });
+
+  LevelModel copyWith({int? stars}) {
+    return LevelModel(
+      maxPlanet: this.maxPlanet,
+      minSpeedPlanet: this.minSpeedPlanet,
+      maxSpeedPlanet: this.maxSpeedPlanet,
+      backgroundUrl: this.backgroundUrl,
+      previewUrl: this.previewUrl,
+      stars: stars ?? this.stars,
+    );
+  }
 }
