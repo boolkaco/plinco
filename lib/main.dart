@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:plinco/app.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:plinco/const/assets.dart';
@@ -13,6 +14,7 @@ void main() async {
   EasyLocalization.logger.enableBuildModes = [];
   await EasyLocalization.ensureInitialized();
   await dotenv.load(fileName: ".env");
+  await Hive.initFlutter();
   await ImageLoader().loadImage(assetsMap['bg']!);
 
   runApp(

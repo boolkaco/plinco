@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:plinco/bloc/app/app_cubit.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/screens/menu_screen.dart';
 import 'package:plinco/services/audio_service.dart';
@@ -25,6 +26,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
       }
 
       await context.read<AudioService>().loadSounds(soundsMap);
+
+      await context.read<AppCubit>().loadLevels();
 
       context.read<AudioService>().stopBackgroundMusic();
       context.read<AudioService>().loopSound('background_sound');

@@ -1,14 +1,39 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:plinco/const/levels.dart';
 import 'package:plinco/models/level_model.dart';
 
 part 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
-  AppCubit() : super(AppState(
-    levels: Levels.list,
-  ));
+  AppCubit() : super(AppState(levels: Levels.list));
+
+  void saveLevels() async {
+    var box = await Hive.openBox('box');
+    List<Map<String, dynamic>> levelsJson =
+        state.levels.map((level) => level.toJson()).toList();
+
+    await box.put('levels', levelsJson);
+    await box.close();
+  }
+
+  Future<void> loadLevels() async {
+    var box = await Hive.openBox('box');
+    var levelsJson = await box.get('levels');
+
+    if (levelsJson != null) {
+      List<LevelModel> loadedLevels = [];
+      for (var levelMap in levelsJson) {
+        Map<String, dynamic> castedLevelMap =
+            Map<String, dynamic>.from(levelMap);
+        loadedLevels.add(LevelModel.fromJson(castedLevelMap));
+      }
+
+      emit(state.copyWith(levels: loadedLevels));
+    }
+    await box.close();
+  }
 
   void finishLevel(LevelModel level, int stars) {
     List<LevelModel> updatedLevels = state.levels.map((l) {
@@ -17,7 +42,7 @@ class AppCubit extends Cubit<AppState> {
       }
       return l;
     }).toList();
-
+    saveLevels();
     emit(state.copyWith(levels: updatedLevels));
   }
 

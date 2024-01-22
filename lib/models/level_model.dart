@@ -25,4 +25,26 @@ class LevelModel {
       stars: stars ?? this.stars,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'maxPlanet': maxPlanet,
+      'minSpeedPlanet': minSpeedPlanet,
+      'maxSpeedPlanet': maxSpeedPlanet,
+      'stars': stars,
+      'backgroundUrl': backgroundUrl,
+      'previewUrl': previewUrl,
+    };
+  }
+
+  factory LevelModel.fromJson(Map<String, dynamic> json) {
+    return LevelModel(
+      maxPlanet: json['maxPlanet'],
+      minSpeedPlanet: json['minSpeedPlanet'],
+      maxSpeedPlanet: json['maxSpeedPlanet'],
+      backgroundUrl: json['backgroundUrl'],
+      previewUrl: json['previewUrl'],
+      stars: json['stars'],
+    );
+  }
 }
