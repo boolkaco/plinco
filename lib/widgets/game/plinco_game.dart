@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/src/image_composition.dart' as ImageComposition;
+import 'package:plinco/bloc/app/app_cubit.dart';
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/widgets/game/cannon.dart';
@@ -13,11 +14,17 @@ class PlincoGame extends FlameGame with PanDetector, HasCollisionDetection {
   static final Random _random = Random();
   final LevelModel level;
   late Cannon cannon;
-  final int maxPlanets = 4;
+  late int maxPlanets;
   final List<MovingPlanet> planets = [];
   final Set<int> availablePlanets = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  final AppCubit appCubit;
 
-  PlincoGame({required this.level});
+  PlincoGame({
+    required this.level,
+    required this.appCubit,
+  }) {
+    maxPlanets = level.maxPlanet;
+  }
 
   @override
   Future<void> onLoad() async {
@@ -29,7 +36,7 @@ class PlincoGame extends FlameGame with PanDetector, HasCollisionDetection {
       add(spriteComponent);
     }
 
-    cannon = Cannon()..position = size / 2;
+    cannon = Cannon(appCubit)..position = size / 2;
     add(cannon);
 
     spawnPlanet();
@@ -39,7 +46,12 @@ class PlincoGame extends FlameGame with PanDetector, HasCollisionDetection {
     if (planets.length < maxPlanets && availablePlanets.isNotEmpty) {
       final index = availablePlanets.elementAt(_random.nextInt(availablePlanets.length));
       availablePlanets.remove(index);
-      final movingPlanet = MovingPlanet(index);
+      final movingPlanet = MovingPlanet(
+        index,
+        appCubit,
+        maxSpeed: level.maxSpeedPlanet,
+        minSpeed: level.minSpeedPlanet,
+      );
       add(movingPlanet);
       planets.add(movingPlanet);
     }

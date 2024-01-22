@@ -1,22 +1,24 @@
 part of 'app_cubit.dart';
 
 class AppState extends Equatable {
-  final String searchTarget;
+  final int score;
+  final int balls;
 
   const AppState({
-    this.searchTarget = '',
+    this.score = 0,
+    this.balls = 10,
   });
 
   @override
-  List<Object?> get props => [
-    searchTarget,
-  ];
+  List<Object?> get props => [score, balls];
 
   AppState copyWith({
-    String? searchTarget = '',
+    int? score,
+    int? balls,
   }) {
     return AppState(
-      searchTarget: searchTarget ?? this.searchTarget,
+      score: score ?? this.score,
+      balls: balls ?? this.balls,
     );
   }
 }

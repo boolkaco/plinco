@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plinco/bloc/app/app_cubit.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/screens/game_screen.dart';
@@ -32,6 +34,7 @@ class LevelScreen extends StatelessWidget {
             AppButton(
               label: "start".tr(),
               onTap: () {
+                BlocProvider.of<AppCubit>(context).resetGame();
                 Navigator.push(
                   context,
                   PageRouteBuilder(

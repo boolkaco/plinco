@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:plinco/bloc/app/app_cubit.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
@@ -16,9 +17,16 @@ class MovingPlanet extends SpriteComponent
   late bool movingLeft;
   late double rotationSpeed;
   late int imageIndex;
+  final int maxSpeed;
+  final int minSpeed;
+  final AppCubit appCubit;
 
-  MovingPlanet(this.imageIndex)
-      : super(
+  MovingPlanet(
+    this.imageIndex,
+    this.appCubit, {
+    required this.maxSpeed,
+    required this.minSpeed,
+  }) : super(
           anchor: Anchor.center,
           size: Vector2.all(100.0),
         );
@@ -38,7 +46,7 @@ class MovingPlanet extends SpriteComponent
     );
     sprite = Sprite(planetImage!);
 
-    speed = _random.nextDouble() * (300 - 100) + 100;
+    speed = _random.nextDouble() * (maxSpeed - minSpeed) + minSpeed;
     movingLeft = _random.nextBool();
     rotationSpeed = _random.nextDouble() * 2 - 1;
 
@@ -96,6 +104,8 @@ class MovingPlanet extends SpriteComponent
       removeFromParent();
       other.removeFromParent();
       gameRef.cannon.reload();
+      appCubit.addScore(100);
+      appCubit.useBall();
     }
   }
 }

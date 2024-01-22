@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:plinco/const/assets.dart';
+import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/back_button.dart';
@@ -13,6 +14,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final AudioService _audioService = AudioService();
   bool isMainSound = true;
   bool isButtonSound = true;
 
@@ -51,6 +53,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               setState(() {
                                 isMainSound = !isMainSound;
                               });
+                              // if (isMainSound) {
+                              //   _audioService.loopSound('background_sound');
+                              // } else {
+                              //   _audioService.stopBackgroundMusic();
+                              // }
                             },
                             child: Image.file(
                               ImagesService().getByFilename(isMainSound

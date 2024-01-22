@@ -5,5 +5,9 @@
   "settings": "Settings",
   "privacy": "Privacy Policy",
   "main_sound": "Main sound",
-  "button_sound": "Button sound"
+  "button_sound": "Button sound",
+  "won": "You won!",
+  "lose": "You lose!",
+  "play_again": "Play again",
+  "try_again": "Try again"
 }

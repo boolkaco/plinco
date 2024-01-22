@@ -1,6 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/src/image_composition.dart' as ImageComposition;
+import 'package:plinco/bloc/app/app_cubit.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/widgets/game/moving_planet.dart';
@@ -9,8 +10,9 @@ import 'package:plinco/widgets/game/plinco_game.dart';
 class CannonBall extends SpriteComponent
     with CollisionCallbacks, HasGameRef<PlincoGame> {
   static final Vector2 ballSize = Vector2(50, 50);
+  final AppCubit appCubit;
 
-  CannonBall() : super(size: ballSize, anchor: Anchor.center);
+  CannonBall(this.appCubit) : super(size: ballSize, anchor: Anchor.center);
 
   @override
   Future<void> onLoad() async {
@@ -36,6 +38,7 @@ class CannonBall extends SpriteComponent
     if (position.y < 0) {
       removeFromParent();
       gameRef.cannon.reload();
+      appCubit.useBall();
     }
   }
 

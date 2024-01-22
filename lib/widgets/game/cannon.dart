@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/src/image_composition.dart' as ImageComposition;
+import 'package:plinco/bloc/app/app_cubit.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
@@ -10,8 +11,9 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
   late SpriteComponent _cannonBase;
   late SpriteComponent _cannonTop;
   late SpriteComponent _cannonBall;
+  final AppCubit appCubit;
 
-  Cannon() : super(anchor: Anchor.bottomCenter);
+  Cannon(this.appCubit) : super(anchor: Anchor.bottomCenter);
 
   final AudioService audioService = AudioService();
 
@@ -19,7 +21,7 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
 
   void shoot() {
     if (_isBallLoaded) {
-      final cannonBall = CannonBall()
+      final cannonBall = CannonBall(appCubit)
         ..position = position +
             Vector2(0, -size.y / 4 - CannonBall.ballSize.y / 4);
       gameRef.add(cannonBall);
