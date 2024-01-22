@@ -87,7 +87,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     return LevelSelectMenu(
                       backgroundUrl: levels[index].previewUrl,
                       isRightPlay: index % 2 == 0,
-                      score: index,
+                      score: 0,
                       onTap: () => _selectLevel(levels[index]),
                     );
                   },

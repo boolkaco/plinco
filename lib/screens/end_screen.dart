@@ -45,13 +45,19 @@ class _EndScreenState extends State<EndScreen> {
               ImagesService().getByFilename(assetsMap['logo']!)!,
               fit: BoxFit.cover,
             ),
+            StrokeText(
+              widget.isWon ? tr('congratulations') : tr('game_over'),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             Stack(
               children: [
                 Image.file(
                   ImagesService().getByFilename(assetsMap[
                       widget.isWon ? 'win_decoration' : 'lose_decoration']!)!,
                   fit: BoxFit.fill,
-                  height: 200,
+                  height: 180,
                 ),
                 Positioned.fill(
                   child: Column(

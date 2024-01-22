@@ -9,5 +9,7 @@
   "won": "You won!",
   "lose": "You lose!",
   "play_again": "Play again",
-  "try_again": "Try again"
+  "try_again": "Try again",
+  "congratulations": "Congratulations!",
+  "game_over": "Game over!"
 }
