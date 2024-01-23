@@ -9,6 +9,7 @@ class Levels {
       maxSpeedPlanet: 300,
       backgroundUrl: assetsMap['level_1_bg']!,
       previewUrl: assetsMap['level_1_preview']!,
+      isLock: false,
     ),
     LevelModel(
       maxPlanet: 3,
@@ -16,6 +17,7 @@ class Levels {
       maxSpeedPlanet: 300,
       backgroundUrl: assetsMap['level_2_bg']!,
       previewUrl: assetsMap['level_2_preview']!,
+      isLock: true,
     ),
     LevelModel(
       maxPlanet: 2,
@@ -23,6 +25,7 @@ class Levels {
       maxSpeedPlanet: 300,
       backgroundUrl: assetsMap['level_3_bg']!,
       previewUrl: assetsMap['level_3_preview']!,
+      isLock: true,
     ),
     LevelModel(
       maxPlanet: 2,
@@ -30,6 +33,7 @@ class Levels {
       maxSpeedPlanet: 500,
       backgroundUrl: assetsMap['level_4_bg']!,
       previewUrl: assetsMap['level_4_preview']!,
+      isLock: true,
     ),
   ];
 }

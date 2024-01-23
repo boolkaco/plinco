@@ -31,6 +31,7 @@ Map<String, String> assetsMap = {
   'checkbox_disable': '/assets/images/elements/checkbox_disable.png',
   'win_decoration': '/assets/images/elements/win_decoration.png',
   'lose_decoration': '/assets/images/elements/lose_decoration.png',
+  'lock': '/assets/images/elements/lock.png',
   'planet_1': '/assets/images/planets_sprite/planet_1.png',
   'planet_2': '/assets/images/planets_sprite/planet_2.png',
   'planet_3': '/assets/images/planets_sprite/planet_3.png',

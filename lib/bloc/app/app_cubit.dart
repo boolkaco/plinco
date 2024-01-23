@@ -20,14 +20,16 @@ class AppCubit extends Cubit<AppState> {
 
   Future<void> loadLevels() async {
     var box = await Hive.openBox('box');
+    await box.clear();
     var levelsJson = await box.get('levels');
 
     if (levelsJson != null) {
       List<LevelModel> loadedLevels = [];
-      for (var levelMap in levelsJson) {
+      for (int i = 0; i < levelsJson.length; i++) {
         Map<String, dynamic> castedLevelMap =
-            Map<String, dynamic>.from(levelMap);
-        loadedLevels.add(LevelModel.fromJson(castedLevelMap));
+            Map<String, dynamic>.from(levelsJson[i]);
+        bool isLock = i == 0 ? false : castedLevelMap['isLock'] ?? true;
+        loadedLevels.add(LevelModel.fromJson(castedLevelMap, isLock: isLock));
       }
 
       emit(state.copyWith(levels: loadedLevels));
@@ -36,12 +38,21 @@ class AppCubit extends Cubit<AppState> {
   }
 
   void finishLevel(LevelModel level, int stars) {
-    List<LevelModel> updatedLevels = state.levels.map((l) {
-      if (l == level) {
-        return l.copyWith(stars: stars);
+    List<LevelModel> updatedLevels = List.from(state.levels);
+
+    int currentIndex = updatedLevels.indexWhere((l) => l == level);
+
+    if (currentIndex != -1) {
+      updatedLevels[currentIndex] = updatedLevels[currentIndex].copyWith(
+        stars: stars,
+      );
+
+      if (stars > 0 && currentIndex < updatedLevels.length - 1) {
+        updatedLevels[currentIndex + 1] =
+            updatedLevels[currentIndex + 1].copyWith(isLock: false);
       }
-      return l;
-    }).toList();
+    }
+
     saveLevels();
     emit(state.copyWith(levels: updatedLevels));
   }

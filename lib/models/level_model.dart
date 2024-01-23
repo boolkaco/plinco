@@ -5,6 +5,7 @@ class LevelModel {
   final int stars;
   final String backgroundUrl;
   final String previewUrl;
+  final bool isLock;
 
   LevelModel({
     required this.maxPlanet,
@@ -12,16 +13,18 @@ class LevelModel {
     required this.maxSpeedPlanet,
     required this.backgroundUrl,
     required this.previewUrl,
+    this.isLock = true,
     this.stars = 0,
   });
 
-  LevelModel copyWith({int? stars}) {
+  LevelModel copyWith({int? stars, bool? isLock}) {
     return LevelModel(
       maxPlanet: this.maxPlanet,
       minSpeedPlanet: this.minSpeedPlanet,
       maxSpeedPlanet: this.maxSpeedPlanet,
       backgroundUrl: this.backgroundUrl,
       previewUrl: this.previewUrl,
+      isLock: isLock ?? this.isLock,
       stars: stars ?? this.stars,
     );
   }
@@ -32,12 +35,16 @@ class LevelModel {
       'minSpeedPlanet': minSpeedPlanet,
       'maxSpeedPlanet': maxSpeedPlanet,
       'stars': stars,
+      'isLock': isLock,
       'backgroundUrl': backgroundUrl,
       'previewUrl': previewUrl,
     };
   }
 
-  factory LevelModel.fromJson(Map<String, dynamic> json) {
+  factory LevelModel.fromJson(
+    Map<String, dynamic> json, {
+    bool isLock = true,
+  }) {
     return LevelModel(
       maxPlanet: json['maxPlanet'],
       minSpeedPlanet: json['minSpeedPlanet'],
@@ -45,6 +52,7 @@ class LevelModel {
       backgroundUrl: json['backgroundUrl'],
       previewUrl: json['previewUrl'],
       stars: json['stars'],
+      isLock: json['isLock'] ?? isLock,
     );
   }
 }

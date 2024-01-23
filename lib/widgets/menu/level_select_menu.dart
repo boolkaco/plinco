@@ -6,6 +6,7 @@ import 'package:plinco/widgets/menu/score_stars.dart';
 class LevelSelectMenu extends StatelessWidget {
   final String backgroundUrl;
   final bool isRightPlay;
+  final bool isLock;
   final int score;
   final Function() onTap;
 
@@ -13,13 +14,13 @@ class LevelSelectMenu extends StatelessWidget {
     super.key,
     required this.backgroundUrl,
     required this.onTap,
+    required this.isLock,
     this.isRightPlay = true,
     this.score = 0,
   });
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: onTap,
       child: Stack(
@@ -34,16 +35,28 @@ class LevelSelectMenu extends StatelessWidget {
                     width: 303,
                     height: 223,
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: isRightPlay ? 20 : null,
-                    left: isRightPlay ? null : 20,
-                    child: Image.file(
-                      ImagesService().getByFilename(assetsMap['play_btn']!)!,
-                      width: 57,
-                      height: 62,
+                  if (!isLock)
+                    Positioned(
+                      bottom: 0,
+                      right: isRightPlay ? 20 : null,
+                      left: isRightPlay ? null : 20,
+                      child: Image.file(
+                        ImagesService().getByFilename(assetsMap['play_btn']!)!,
+                        width: 57,
+                        height: 62,
+                      ),
                     ),
-                  ),
+                  if (isLock)
+                    Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Image.file(
+                          ImagesService().getByFilename(assetsMap['lock']!)!,
+                          width: 80,
+                          height: 80,
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),

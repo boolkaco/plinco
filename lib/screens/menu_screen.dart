@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plinco/bloc/app/app_cubit.dart';
 import 'package:plinco/const/assets.dart';
-import 'package:plinco/const/levels.dart';
 import 'package:plinco/models/level_model.dart';
 import 'package:plinco/screens/level_screen.dart';
 import 'package:plinco/services/audio_service.dart';
@@ -48,19 +47,21 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   void _selectLevel(LevelModel level) {
-    if (context.read<AppCubit>().state.isButtonsSound) {
-      audioService.playSound('buttons_sound');
-    }
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation1, animation2) => LevelScreen(
-          level: level,
+    if (!level.isLock) {
+      if (context.read<AppCubit>().state.isButtonsSound) {
+        audioService.playSound('buttons_sound');
+      }
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation1, animation2) => LevelScreen(
+            level: level,
+          ),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
         ),
-        transitionDuration: Duration.zero,
-        reverseTransitionDuration: Duration.zero,
-      ),
-    );
+      );
+    }
   }
 
   @override
@@ -88,6 +89,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         return LevelSelectMenu(
                           backgroundUrl: appState.levels[index].previewUrl,
                           isRightPlay: index % 2 == 0,
+                          isLock: appState.levels[index].isLock,
                           score: appState.levels[index].stars,
                           onTap: () => _selectLevel(appState.levels[index]),
                         );
