@@ -20,7 +20,6 @@ class AppCubit extends Cubit<AppState> {
 
   Future<void> loadLevels() async {
     var box = await Hive.openBox('box');
-    await box.clear();
     var levelsJson = await box.get('levels');
 
     if (levelsJson != null) {

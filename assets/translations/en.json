@@ -11,5 +11,8 @@
   "play_again": "Play again",
   "try_again": "Try again",
   "congratulations": "Congratulations!",
-  "game_over": "Game over!"
+  "game_over": "Game over!",
+  "update": "Update",
+  "update_desc": "App update\nrequires reboot!",
+  "reboot": "Reboot"
 }
