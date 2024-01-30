@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:plinco/app.dart';
@@ -17,15 +18,20 @@ void main() async {
   await Hive.initFlutter();
   await ImageLoader().loadImage(assetsMap['bg']!);
 
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [Locale('en')],
-      path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
-      child: Provider<AudioService>(
-        create: (_) => AudioService(),
-        child: const App(),
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(
+      EasyLocalization(
+        supportedLocales: const [Locale('en')],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('en'),
+        child: Provider<AudioService>(
+          create: (_) => AudioService(),
+          child: const App(),
+        ),
       ),
-    ),
-  );
+    );
+  });
 }
