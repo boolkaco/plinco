@@ -32,7 +32,7 @@ class AppState extends Equatable {
     bool? isButtonsSound,
   }) {
     return AppState(
-      levels: levels ?? this.levels,
+      levels: levels, // can't be null
       score: score ?? this.score,
       balls: balls ?? this.balls,
       isBackgroundSound: isBackgroundSound ?? this.isBackgroundSound,

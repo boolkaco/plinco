@@ -1,4 +1,7 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:plinco/app.dart';
@@ -7,18 +10,49 @@ import 'package:plinco/const/assets.dart';
 import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/utils/image_loader.dart';
 import 'package:provider/provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+import '/services/logger.dart';
 
+Future<void> main() async {
+  await platformInit();
 
-void main() async {
+  await SentryFlutter.init(
+    _sentryOptions,
+    appRunner: () => runApp(const EntryPoint()),
+  );
+}
+
+Future<void> platformInit() async {
   WidgetsFlutterBinding.ensureInitialized();
   EasyLocalization.logger.enableBuildModes = [];
-  await EasyLocalization.ensureInitialized();
-  await dotenv.load(fileName: ".env");
-  await Hive.initFlutter();
-  await ImageLoader().loadImage(assetsMap['bg']!);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
-  runApp(
-    EasyLocalization(
+  await dotenv.load(fileName: ".env");
+  log = MultipleLibrariesLogging();
+  await Future.wait([
+    EasyLocalization.ensureInitialized(),
+    Hive.initFlutter(),
+    ImageLoader().loadImage(assetsMap['bg']!),
+  ]);
+}
+
+void _sentryOptions(SentryFlutterOptions options) {
+  options.dsn = dotenv.env['SENTRY_DSN'];
+  options.tracesSampleRate = 1.0;
+  options.sendDefaultPii = true;
+  options.attachScreenshot = false;
+  options.attachStacktrace = true;
+}
+
+class EntryPoint extends StatelessWidget {
+  const EntryPoint({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return EasyLocalization(
       supportedLocales: const [Locale('en')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
@@ -26,6 +60,6 @@ void main() async {
         create: (_) => AudioService(),
         child: const App(),
       ),
-    ),
-  );
+    );
+  }
 }

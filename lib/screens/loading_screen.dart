@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:plinco/bloc/app/app_cubit.dart';
@@ -26,7 +28,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
       }
 
       await context.read<AudioService>().loadSounds(soundsMap);
-
       await context.read<AppCubit>().loadLevels();
 
       context.read<AudioService>().stopBackgroundMusic();
@@ -36,8 +37,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         Navigator.pushReplacement(
           context,
           PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) =>
-                const MenuScreen(),
+            pageBuilder: (context, animation1, animation2) => const MenuScreen(),
             transitionDuration: Duration.zero,
             reverseTransitionDuration: Duration.zero,
           ),

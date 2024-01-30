@@ -19,11 +19,11 @@ class LevelModel {
 
   LevelModel copyWith({int? stars, bool? isLock}) {
     return LevelModel(
-      maxPlanet: this.maxPlanet,
-      minSpeedPlanet: this.minSpeedPlanet,
-      maxSpeedPlanet: this.maxSpeedPlanet,
-      backgroundUrl: this.backgroundUrl,
-      previewUrl: this.previewUrl,
+      maxPlanet: maxPlanet,
+      minSpeedPlanet: minSpeedPlanet,
+      maxSpeedPlanet: maxSpeedPlanet,
+      backgroundUrl: backgroundUrl,
+      previewUrl: previewUrl,
       isLock: isLock ?? this.isLock,
       stars: stars ?? this.stars,
     );

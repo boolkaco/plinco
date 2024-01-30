@@ -1,3 +1,5 @@
+// ignore_for_file: library_prefixes, implementation_imports
+
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/src/image_composition.dart' as ImageComposition;
@@ -6,9 +8,9 @@ import 'package:plinco/const/assets.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/widgets/game/moving_planet.dart';
 import 'package:plinco/widgets/game/plinco_game.dart';
+import '/services/logger.dart';
 
-class CannonBall extends SpriteComponent
-    with CollisionCallbacks, HasGameRef<PlincoGame> {
+class CannonBall extends SpriteComponent with CollisionCallbacks, HasGameRef<PlincoGame> {
   static final Vector2 ballSize = Vector2(50, 50);
   final AppCubit appCubit;
 
@@ -18,14 +20,13 @@ class CannonBall extends SpriteComponent
   Future<void> onLoad() async {
     super.onLoad();
 
-    final ImageComposition.Image? ballImage =
-        await ImagesService().getImageByFilename(assetsMap['ball']!);
+    final ImageComposition.Image? ballImage = await ImagesService().getImageByFilename(assetsMap['ball']!);
 
     if (ballImage != null) {
       sprite = Sprite(ballImage);
       size = ballSize;
     } else {
-      print('Cannot load the ball sprite image.');
+      log.message('Cannot load the ball sprite image.');
     }
     add(RectangleHitbox());
   }

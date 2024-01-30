@@ -1,3 +1,5 @@
+// ignore_for_file: library_prefixes, implementation_imports
+
 import 'package:flame/components.dart';
 import 'package:flame/src/image_composition.dart' as ImageComposition;
 import 'package:plinco/bloc/app/app_cubit.dart';
@@ -6,6 +8,7 @@ import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/widgets/game/cannon_ball.dart';
 import 'package:plinco/widgets/game/plinco_game.dart';
+import '/services/logger.dart';
 
 class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
   late SpriteComponent _cannonBase;
@@ -22,8 +25,7 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
   void shoot() {
     if (_isBallLoaded) {
       final cannonBall = CannonBall(appCubit)
-        ..position = position +
-            Vector2(0, -size.y / 4 - CannonBall.ballSize.y / 4);
+        ..position = position + Vector2(0, -size.y / 4 - CannonBall.ballSize.y / 4);
       gameRef.add(cannonBall);
       audioService.playSound('gun_sound');
       _isBallLoaded = false;
@@ -42,12 +44,9 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
 
   @override
   Future<void> onLoad() async {
-    final ImageComposition.Image? gunBackImage =
-        await ImagesService().getImageByFilename(assetsMap['gun_back']!);
-    final ImageComposition.Image? gunImage =
-        await ImagesService().getImageByFilename(assetsMap['gun']!);
-    final ImageComposition.Image? ballImage =
-        await ImagesService().getImageByFilename(assetsMap['ball']!);
+    final ImageComposition.Image? gunBackImage = await ImagesService().getImageByFilename(assetsMap['gun_back']!);
+    final ImageComposition.Image? gunImage = await ImagesService().getImageByFilename(assetsMap['gun']!);
+    final ImageComposition.Image? ballImage = await ImagesService().getImageByFilename(assetsMap['ball']!);
 
     if (gunBackImage != null && gunImage != null && ballImage != null) {
       _cannonBase = SpriteComponent(
@@ -72,18 +71,16 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
 
       _cannonBase.position.y -= 33.5;
       _cannonBall.position.y -= 10;
-      position =
-          Vector2(gameRef.size.x / 2 - size.x / 2, gameRef.size.y - size.y / 2);
+      position = Vector2(gameRef.size.x / 2 - size.x / 2, gameRef.size.y - size.y / 2);
     } else {
-      print('Error: Could not load sprites.');
+      log.message('Error: Could not load sprites.');
     }
   }
 
   void move(Vector2 delta) {
     position.add(Vector2(delta.x, 0));
 
-    double newX =
-        position.x.clamp(size.x / 2, gameRef.size.x - size.x / 2).toDouble();
+    double newX = position.x.clamp(size.x / 2, gameRef.size.x - size.x / 2).toDouble();
     position.x = newX;
   }
 }

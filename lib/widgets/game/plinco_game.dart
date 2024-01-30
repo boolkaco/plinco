@@ -1,5 +1,6 @@
-import 'dart:math';
+// ignore_for_file: library_prefixes, implementation_imports
 
+import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
@@ -29,8 +30,7 @@ class PlincoGame extends FlameGame with PanDetector, HasCollisionDetection {
 
   @override
   Future<void> onLoad() async {
-    final ImageComposition.Image? bg2 =
-        await ImagesService().getImageByFilename(level.backgroundUrl);
+    final ImageComposition.Image? bg2 = await ImagesService().getImageByFilename(level.backgroundUrl);
     if (bg2 != null) {
       final sprite = Sprite(bg2);
       final spriteComponent = SpriteComponent(sprite: sprite, size: size);
