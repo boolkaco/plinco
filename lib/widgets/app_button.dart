@@ -22,18 +22,31 @@ class AppButton extends StatelessWidget {
     this.type = AppButtonType.main,
   });
 
-  double _getCustomWidth() {
+  double _getCustomWidth(double screenWidth) {
     if (type == AppButtonType.main) {
-      return 240;
+      return screenWidth * 0.8;
     } else if (type == AppButtonType.right) {
-      return 210;
+      return screenWidth * 0.65;
     } else {
-      return 190;
+      return screenWidth * 0.65;
+    }
+  }
+
+  double _getCustomHeight(double screenWidth) {
+    if (type == AppButtonType.main) {
+      return screenWidth * 0.14;
+    } else if (type == AppButtonType.right) {
+      return screenWidth * 0.09;
+    } else {
+      return screenWidth * 0.09;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return GestureDetector(
       onTap: () {
         if (context.read<AppCubit>().state.isButtonsSound) {
@@ -45,12 +58,12 @@ class AppButton extends StatelessWidget {
         children: [
           Image.file(
             ImagesService().getByFilename(assetsMap['${type.name}_menu_btn']!)!,
-            width: _getCustomWidth(),
-            height: type == AppButtonType.main ? 120 : 80,
+            width: _getCustomWidth(screenWidth),
+            height: _getCustomHeight(screenHeight),
           ),
           SizedBox(
-            width: _getCustomWidth(),
-            height: type == AppButtonType.main ? 120 : 80,
+            width: _getCustomWidth(screenWidth),
+            height: _getCustomHeight(screenHeight),
             child: Center(
               child: StrokeText(
                 label,

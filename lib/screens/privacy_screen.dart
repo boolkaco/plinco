@@ -19,6 +19,7 @@ class PrivacyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     String privacyUrl = '${dotenv.env['BASE_PATH']}/privacy';
     controller.loadRequest(LoadRequestParams(uri: Uri.parse(privacyUrl)));
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return BackgroundWrapper(
       child: Column(
@@ -40,8 +41,8 @@ class PrivacyScreen extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: AppBackButton(),
           ),
-          const SizedBox(
-            height: 62,
+          SizedBox(
+            height: screenHeight * 0.04,
           ),
         ],
       ),

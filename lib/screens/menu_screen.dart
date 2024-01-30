@@ -8,6 +8,7 @@ import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/utils/lifecircle_event_handler.dart';
+import 'package:plinco/widgets/app_logo.dart';
 import 'package:plinco/widgets/menu/level_select_menu.dart';
 import 'package:provider/provider.dart';
 
@@ -66,6 +67,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, appState) {
         return BackgroundWrapper(
@@ -73,12 +75,11 @@ class _MenuScreenState extends State<MenuScreen> {
             backgroundColor: Colors.transparent,
             body: Column(
               children: [
-                const SizedBox(
-                  height: 114,
+                SizedBox(
+                  height: screenHeight * 0.08,
                 ),
-                Image.file(
-                  ImagesService().getByFilename(assetsMap['logo']!)!,
-                  fit: BoxFit.cover,
+                const Center(
+                  child: AppLogo(),
                 ),
                 if (_isLoaded)
                   Expanded(

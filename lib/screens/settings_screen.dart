@@ -6,6 +6,7 @@ import 'package:plinco/const/assets.dart';
 import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
+import 'package:plinco/widgets/app_logo.dart';
 import 'package:plinco/widgets/back_button.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, appState) {
         return BackgroundWrapper(
@@ -25,13 +27,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             backgroundColor: Colors.transparent,
             body: Column(
               children: [
-                const SizedBox(
-                  height: 114,
+                SizedBox(
+                  height: screenHeight * 0.08,
                 ),
-                Image.file(
-                  ImagesService().getByFilename(assetsMap['logo']!)!,
-                  fit: BoxFit.cover,
-                ),
+                const AppLogo(),
                 Stack(
                   children: [
                     Image.file(
@@ -118,14 +117,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ],
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: AppBackButton(),
-                  ),
+                Expanded(child: Container(),),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: AppBackButton(),
                 ),
-                const SizedBox(
-                  height: 62,
+                SizedBox(
+                  height: screenHeight * 0.04,
                 ),
               ],
             ),

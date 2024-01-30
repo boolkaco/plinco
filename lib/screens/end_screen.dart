@@ -9,6 +9,7 @@ import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
 import 'package:plinco/theme/app_colors.dart';
 import 'package:plinco/utils/layout_wrapper.dart';
+import 'package:plinco/widgets/app_logo.dart';
 import 'package:plinco/widgets/back_button.dart';
 import 'package:plinco/widgets/common/stroke_text.dart';
 
@@ -33,18 +34,16 @@ class _EndScreenState extends State<EndScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return BackgroundWrapper(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Column(
           children: [
-            const SizedBox(
-              height: 114,
+            SizedBox(
+              height: screenHeight * 0.08,
             ),
-            Image.file(
-              ImagesService().getByFilename(assetsMap['logo']!)!,
-              fit: BoxFit.cover,
-            ),
+            const AppLogo(),
             StrokeText(
               widget.isWon ? tr('congratulations') : tr('game_over'),
             ),
@@ -94,10 +93,11 @@ class _EndScreenState extends State<EndScreen> {
                   Image.file(
                     ImagesService().getByFilename(assetsMap['again_btn']!)!,
                     fit: BoxFit.fill,
-                    height: 100,
+                    height: screenHeight * 0.12,
                   ),
                   Positioned(
-                    top: 20,
+                    top: screenHeight * 0.02,
+                    bottom: screenHeight * 0.04,
                     left: 0,
                     right: 0,
                     child: Column(
@@ -107,6 +107,7 @@ class _EndScreenState extends State<EndScreen> {
                           widget.isWon ? tr('try_again') : tr('play_again'),
                           color: AppColors.deepKoamaru,
                           strokeColor: AppColors.white,
+                          size: screenHeight * 0.035,
                         ),
                       ],
                     ),
@@ -114,18 +115,17 @@ class _EndScreenState extends State<EndScreen> {
                 ],
               ),
             ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: AppBackButton(
-                  callback: () {
-                    BlocProvider.of<AppCubit>(context).resetGame();
-                  },
-                ),
+            Expanded(child: Container()),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: AppBackButton(
+                callback: () {
+                  BlocProvider.of<AppCubit>(context).resetGame();
+                },
               ),
             ),
-            const SizedBox(
-              height: 62,
+            SizedBox(
+              height: screenHeight * 0.04,
             ),
           ],
         ),
