@@ -10,7 +10,7 @@ import 'package:plinco/widgets/game/plinco_game.dart';
 class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
   late SpriteComponent _cannonBase;
   late SpriteComponent _cannonTop;
-  late SpriteComponent _cannonBall;
+  late SpriteComponent? _cannonBall;
   final AppCubit appCubit;
 
   Cannon(this.appCubit) : super(anchor: Anchor.bottomCenter);
@@ -20,7 +20,7 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
   bool _isBallLoaded = true;
 
   void shoot() {
-    if (_isBallLoaded) {
+    if (_isBallLoaded && _cannonBall != null) {
       final cannonBall = CannonBall(appCubit)
         ..position = position +
             Vector2(0, -size.y / 4 - CannonBall.ballSize.y / 4);
@@ -28,16 +28,29 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
       audioService.playSound('gun_sound');
       _isBallLoaded = false;
 
-      removeFromParent();
-      remove(_cannonBall);
-      gameRef.add(this);
+      remove(_cannonBall!);
+      _cannonBall = null;
     }
   }
 
-  void reload() {
-    _isBallLoaded = true;
-    add(_cannonBall);
-    add(_cannonTop);
+  void reload() async {
+    if (!_isBallLoaded) {
+      _isBallLoaded = true;
+      _cannonBall = await createCannonBall();
+      add(_cannonBall!);
+      _cannonBall!.position.y -= 10;
+      add(_cannonTop);
+    }
+  }
+
+  Future<SpriteComponent> createCannonBall() async {
+    final ImageComposition.Image? ballImage =
+        await ImagesService().getImageByFilename(assetsMap['ball']!);
+    return SpriteComponent(
+      sprite: Sprite(ballImage!),
+      size: Vector2(50, 50),
+      anchor: Anchor.bottomCenter,
+    );
   }
 
   @override
@@ -60,18 +73,14 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
         size: Vector2(85, 88),
         anchor: Anchor.bottomCenter,
       );
-      _cannonBall = SpriteComponent(
-        sprite: Sprite(ballImage),
-        size: Vector2(50, 50),
-        anchor: Anchor.bottomCenter,
-      );
 
       add(_cannonBase);
-      add(_cannonBall);
+      _cannonBall = await createCannonBall();
+      add(_cannonBall!);
       add(_cannonTop);
 
       _cannonBase.position.y -= 33.5;
-      _cannonBall.position.y -= 10;
+      _cannonBall!.position.y -= 10;
       position =
           Vector2(gameRef.size.x / 2 - size.x / 2, gameRef.size.y - size.y / 2);
     } else {
