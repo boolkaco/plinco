@@ -68,7 +68,6 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 if (context.read<AppCubit>().state.isButtonsSound) {
                   audioService.playSound('buttons_sound');
                 }
-                print('reboot app...');
               },
               child: Stack(
                 children: [

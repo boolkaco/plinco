@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:flame/src/image_composition.dart' as ImageComposition;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:plinco/services/logger_service.dart';
 
 class ImagesService {
   String basePath = dotenv.env['BASE_PATH']!;
@@ -25,8 +26,8 @@ class ImagesService {
       final frame = await codec.getNextFrame();
 
       return frame.image;
-    } catch (error) {
-      print(error);
+    } catch (error, stackTrace) {
+      const SentryLogging().exception(error, stackTrace);
       return null;
     }
   }
@@ -37,16 +38,16 @@ class ImagesService {
   }) async {
     try {
       _imageCaches[basePath + fileName] = file;
-    } catch (error) {
-      print(error);
+    } catch (error, stackTrace) {
+      const SentryLogging().exception(error, stackTrace);
     }
   }
 
   File? getByFilename(String fileName) {
     try {
       return _imageCaches[basePath + fileName];
-    } catch (error) {
-      print(error);
+    } catch (error, stackTrace) {
+      const SentryLogging().exception(error, stackTrace);
       return null;
     }
   }

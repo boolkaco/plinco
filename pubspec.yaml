@@ -49,6 +49,7 @@ dependencies:
   webview_flutter: ^4.4.4
   webview_flutter_wkwebview: ^3.10.2
   audioplayers: ^5.2.1
+  sentry_flutter: ^7.16.0
 
 dev_dependencies:
   flutter_test:

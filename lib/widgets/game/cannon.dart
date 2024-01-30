@@ -4,6 +4,7 @@ import 'package:plinco/bloc/app/app_cubit.dart';
 import 'package:plinco/const/assets.dart';
 import 'package:plinco/services/audio_service.dart';
 import 'package:plinco/services/images_service.dart';
+import 'package:plinco/services/logger_service.dart';
 import 'package:plinco/widgets/game/cannon_ball.dart';
 import 'package:plinco/widgets/game/plinco_game.dart';
 
@@ -84,7 +85,7 @@ class Cannon extends PositionComponent with HasGameRef<PlincoGame> {
       position =
           Vector2(gameRef.size.x / 2 - size.x / 2, gameRef.size.y - size.y / 2);
     } else {
-      print('Error: Could not load sprites.');
+      const SentryLogging().message('Error: Could not load sprites.');
     }
   }
 
