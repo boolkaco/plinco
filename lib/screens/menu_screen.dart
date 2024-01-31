@@ -10,7 +10,6 @@ import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/utils/lifecircle_event_handler.dart';
 import 'package:plinco/widgets/app_logo.dart';
 import 'package:plinco/widgets/menu/level_select_menu.dart';
-import 'package:provider/provider.dart';
 
 class MenuScreen extends StatefulWidget {
   final bool isLoaded;

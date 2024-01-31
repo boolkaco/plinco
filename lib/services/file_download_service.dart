@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import 'package:plinco/services/logger_service.dart';
+import 'package:plinco/services/logger.dart';
 
 class FileDownloadService {
   String basePath = dotenv.env['BASE_PATH']!;
@@ -18,7 +18,7 @@ class FileDownloadService {
     try {
       final response = await http.get(Uri.parse(basePath + url));
       if (response.statusCode != 200) {
-        const SentryLogging().message('Network error: ${response.statusCode}');
+        log.message('Network error: ${response.statusCode}');
         return null;
       }
 
@@ -30,8 +30,8 @@ class FileDownloadService {
       await file.writeAsBytes(response.bodyBytes);
 
       return file;
-    } catch (error, stackTrace) {
-      const SentryLogging().exception(error, stackTrace);
+    } catch (e, t) {
+      log.exception(e, t);
       return null;
     }
   }

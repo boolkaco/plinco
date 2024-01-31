@@ -1,8 +1,10 @@
+// ignore_for_file: implementation_imports, library_prefixes
+
 import 'dart:io';
 import 'dart:ui';
 import 'package:flame/src/image_composition.dart' as ImageComposition;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:plinco/services/logger_service.dart';
+import 'package:plinco/services/logger.dart';
 
 class ImagesService {
   String basePath = dotenv.env['BASE_PATH']!;
@@ -26,8 +28,8 @@ class ImagesService {
       final frame = await codec.getNextFrame();
 
       return frame.image;
-    } catch (error, stackTrace) {
-      const SentryLogging().exception(error, stackTrace);
+    } catch (e, t) {
+      log.exception(e, t);
       return null;
     }
   }
@@ -38,16 +40,16 @@ class ImagesService {
   }) async {
     try {
       _imageCaches[basePath + fileName] = file;
-    } catch (error, stackTrace) {
-      const SentryLogging().exception(error, stackTrace);
+    } catch (e, t) {
+      log.exception(e, t);
     }
   }
 
   File? getByFilename(String fileName) {
     try {
       return _imageCaches[basePath + fileName];
-    } catch (error, stackTrace) {
-      const SentryLogging().exception(error, stackTrace);
+    } catch (e, t) {
+      log.exception(e, t);
       return null;
     }
   }

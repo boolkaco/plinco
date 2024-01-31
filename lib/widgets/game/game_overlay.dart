@@ -31,8 +31,7 @@ class GameOverlay extends StatelessWidget {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) =>
-                    const MenuScreen(
+                    pageBuilder: (context, animation1, animation2) => const MenuScreen(
                       isLoaded: true,
                     ),
                     transitionDuration: Duration.zero,
@@ -66,11 +65,10 @@ class GameOverlay extends StatelessWidget {
                         const SizedBox(width: 6),
                         Text(
                           appState.score.toString(),
-                          style:
-                          Theme.of(context).textTheme.headlineMedium!.copyWith(
-                            color: AppColors.white,
-                            height: 3.2,
-                          ),
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                color: AppColors.white,
+                                height: 3.2,
+                              ),
                         )
                       ],
                     ),
@@ -84,11 +82,10 @@ class GameOverlay extends StatelessWidget {
                         const SizedBox(width: 6),
                         Text(
                           appState.balls.toString(),
-                          style:
-                          Theme.of(context).textTheme.headlineMedium!.copyWith(
-                            color: AppColors.white,
-                            height: 3.2,
-                          ),
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                color: AppColors.white,
+                                height: 3.2,
+                              ),
                         )
                       ],
                     ),
@@ -104,8 +101,7 @@ class GameOverlay extends StatelessWidget {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (context, animation1, animation2) =>
-                        LevelScreen(level: level),
+                    pageBuilder: (context, animation1, animation2) => LevelScreen(level: level),
                     transitionDuration: Duration.zero,
                     reverseTransitionDuration: Duration.zero,
                   ),

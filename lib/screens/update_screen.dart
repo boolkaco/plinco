@@ -10,6 +10,7 @@ import 'package:plinco/utils/layout_wrapper.dart';
 import 'package:plinco/widgets/app_logo.dart';
 import 'package:plinco/widgets/back_button.dart';
 import 'package:plinco/widgets/common/stroke_text.dart';
+import '/services/logger.dart';
 
 class UpdateScreen extends StatefulWidget {
   const UpdateScreen({
@@ -68,6 +69,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 if (context.read<AppCubit>().state.isButtonsSound) {
                   audioService.playSound('buttons_sound');
                 }
+                log.message('reboot app...');
               },
               child: Stack(
                 children: [

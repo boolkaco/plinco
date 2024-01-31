@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -12,7 +14,8 @@ class PrivacyScreen extends StatelessWidget {
 
   final PlatformWebViewController controller = PlatformWebViewController(
     WebKitWebViewControllerCreationParams(allowsInlineMediaPlayback: true),
-  )..setJavaScriptMode(JavaScriptMode.unrestricted)
+  )
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setBackgroundColor(Colors.transparent);
 
   @override
@@ -31,7 +34,8 @@ class PrivacyScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Expanded(child: PlatformWebViewWidget(
+          Expanded(
+              child: PlatformWebViewWidget(
             PlatformWebViewWidgetCreationParams(controller: controller),
           ).build(context)),
           const SizedBox(
